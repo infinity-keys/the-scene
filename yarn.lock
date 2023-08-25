@@ -17426,6 +17426,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "prettier@npm:3.0.2"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: e088d9be58a8d209c80700d0ba99b2c1730d75366ef76800758be8f8a8eef55fb130c0c475eeb7fee522afa9dce4d15779e4a799832bae2b512a1566cfb571d4
+  languageName: node
+  linkType: hard
+
 "pretty-bytes@npm:5.6.0":
   version: 5.6.0
   resolution: "pretty-bytes@npm:5.6.0"
@@ -18521,6 +18530,7 @@ __metadata:
   dependencies:
     "@redwoodjs/auth-clerk-setup": 6.1.0
     "@redwoodjs/core": 6.1.0
+    prettier: ^3.0.2
     prettier-plugin-tailwindcss: ^0.5.3
   languageName: unknown
   linkType: soft
