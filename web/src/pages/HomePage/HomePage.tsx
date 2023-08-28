@@ -114,7 +114,8 @@ const HomePage = () => {
       <Map
         {...viewState}
         reuseMaps
-        onMove={(evt) => setViewState(evt.viewState)}
+        onMove={(e) => setViewState(e.viewState)}
+        onClick={(e) => console.log(e)}
         mapLib={import('mapbox-gl')}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
