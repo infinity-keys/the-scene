@@ -59,7 +59,7 @@ const HomePage = () => {
 
   return (
     <div className="relative">
-      <div className="fixedsleft-0 top-0 z-20 w-full bg-gray-600 text-white">
+      <div className="sticky left-0 top-0 z-20 w-full bg-gray-600 text-white">
         {isAuthenticated ? (
           <div>
             <p>{userMetadata?.username}</p>
