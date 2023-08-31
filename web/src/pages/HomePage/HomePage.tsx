@@ -3,11 +3,12 @@ import Map, { Marker } from 'react-map-gl'
 import { useEffect, useMemo, useState } from 'react'
 import { useGeolocated } from 'react-geolocated'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import CreateScene from 'src/components/CreateScene/CreateScene'
 
 const HomePage = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()
 
-  const [currentEventId, setCurrentEventId] = useState<string>(null)
+  const [currentEventId, setCurrentEventId] = useState<string | null>(null)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
@@ -52,7 +53,7 @@ const HomePage = () => {
 
   return (
     <div className="relative">
-      <div className="fixed left-0 top-0 z-20 w-full bg-gray-600 text-white">
+      <div className="fixedsleft-0 top-0 z-20 w-full bg-gray-600 text-white">
         {isAuthenticated ? (
           <div>
             <p>{userMetadata?.username}</p>
@@ -70,6 +71,7 @@ const HomePage = () => {
               setViewState({ latitude: lat, longitude: long, zoom: 15 })
               setCurrentEventId(id)
             }}
+            key={id}
           >
             {id}
           </button>
@@ -84,7 +86,9 @@ const HomePage = () => {
         )}
       </div>
 
-      <Map
+      <CreateScene />
+
+      {/* <Map
         {...viewState}
         reuseMaps
         onMove={(e) => setViewState(e.viewState)}
@@ -104,7 +108,7 @@ const HomePage = () => {
         )}
 
         {markers}
-      </Map>
+      </Map> */}
     </div>
   )
 }

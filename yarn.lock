@@ -7165,6 +7165,7 @@ __metadata:
     "@redwoodjs/api": 6.1.0
     "@redwoodjs/auth-clerk-api": 6.1.0
     "@redwoodjs/graphql-server": 6.1.0
+    cloudinary: ^1.40.0
   languageName: unknown
   linkType: soft
 
@@ -8908,6 +8909,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cloudinary-core@npm:^2.13.0":
+  version: 2.13.0
+  resolution: "cloudinary-core@npm:2.13.0"
+  peerDependencies:
+    lodash: ">=4.0"
+  checksum: 183cc22ecf19d4430787f3de0a7a489ecdfe522021de3f636f9e01e040bcf6bb7d8bddbb6d551d67bd2d74587587f9c77d12214602e90fc1a70d454101bad20d
+  languageName: node
+  linkType: hard
+
+"cloudinary@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "cloudinary@npm:1.40.0"
+  dependencies:
+    cloudinary-core: ^2.13.0
+    core-js: ^3.30.1
+    lodash: ^4.17.21
+    q: ^1.5.1
+  checksum: 171070521b8754d3a6ab80fe9839cf1feff013404a99ea92ed253d806d27b61e6bb1c08557d60ed5e3dda0abb1c38ace1d8e49dc15dac5d648fec62b7e21c828
+  languageName: node
+  linkType: hard
+
 "clsx@npm:^2.0.0":
   version: 2.0.0
   resolution: "clsx@npm:2.0.0"
@@ -9330,6 +9352,13 @@ __metadata:
   version: 3.32.0
   resolution: "core-js@npm:3.32.0"
   checksum: 8839b9a5cfff4999cf5e3277072c7c581b29618c6dbc2f9d0170c529a701310ec78843bd97bede0742cf6899b526bdb062bb1d148c6e9a40f3d19173b7ee8e88
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.30.1":
+  version: 3.32.1
+  resolution: "core-js@npm:3.32.1"
+  checksum: 994ba8379331c8e1dcbd28dc4952208b629c2dec8b8fbb6104f85282c9dfd0b1f76f23ea42778ad7ef236626cc29e403562c6a0726004fd39eaf5c7d618f7fa2
   languageName: node
   linkType: hard
 
@@ -17935,6 +17964,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"q@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "q@npm:1.5.1"
+  checksum: 7855fbdba126cb7e92ef3a16b47ba998c0786ec7fface236e3eb0135b65df36429d91a86b1fff3ab0927b4ac4ee88a2c44527c7c3b8e2a37efbec9fe34803df4
+  languageName: node
+  linkType: hard
+
 "qs@npm:6.11.0":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
@@ -18169,6 +18205,16 @@ __metadata:
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
   checksum: b8ae07ad153357d77830928a7f1fc2df837aabefee907fa273ba04c7643f3b860e986f1d4b7ada9b721c8d79b8c24b5b911a314a1a2398b105f1b13d19ea2b8d
+  languageName: node
+  linkType: hard
+
+"react-webcam@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "react-webcam@npm:7.1.1"
+  peerDependencies:
+    react: ">=16.2.0"
+    react-dom: ">=16.2.0"
+  checksum: 78a5f57e3f55f1653c91a0f9fd3c94fd0865d30407b9864c033ded01edd4efbbc581520e7b7ee88055802574e602c8ffe6c4e5f282f4ed1a4ce6a9a2cb445c50
   languageName: node
   linkType: hard
 
@@ -21582,6 +21628,7 @@ __metadata:
     react-dom: 18.2.0
     react-geolocated: ^4.1.2
     react-map-gl: ^7.1.5
+    react-webcam: ^7.1.1
     tailwindcss: ^3.3.3
   languageName: unknown
   linkType: soft

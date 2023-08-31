@@ -16,3 +16,14 @@ model User {
   authId   String  @unique
   username String?
 }
+
+model Scene {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  latitude     Float
+  longitude    Float
+  title        String
+  coverImageId String
+}
