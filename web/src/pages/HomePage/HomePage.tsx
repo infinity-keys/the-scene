@@ -1,6 +1,7 @@
 import { useAuth } from 'src/auth'
 import Map, { Marker } from 'react-map-gl'
-import { useEffect, useMemo, useState } from 'react'
+import mapboxgl from 'mapbox-gl'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGeolocated } from 'react-geolocated'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import CreateScene from 'src/components/CreateScene/CreateScene'
@@ -15,6 +16,14 @@ const HomePage = () => {
     zoom: 9,
   })
 
+  const handleMarkerFocus = useCallback(
+    ({ lat, long, id }) => {
+      setViewState({ latitude: lat, longitude: long, zoom: 15 })
+      setCurrentEventId(id)
+    },
+    [setViewState, setCurrentEventId]
+  )
+
   const markers = useMemo(
     () =>
       testData.map(({ lat, long, id }) => (
@@ -22,10 +31,7 @@ const HomePage = () => {
           latitude={lat}
           longitude={long}
           key={id}
-          onClick={() => {
-            setViewState({ latitude: lat, longitude: long, zoom: 15 })
-            setCurrentEventId(id)
-          }}
+          onClick={() => handleMarkerFocus({ lat, long, id })}
         >
           <span className="text-3xl">🎸</span>
         </Marker>
@@ -66,13 +72,7 @@ const HomePage = () => {
 
         {/* Shows list of events */}
         {testData.map(({ id, lat, long }) => (
-          <button
-            onClick={() => {
-              setViewState({ latitude: lat, longitude: long, zoom: 15 })
-              setCurrentEventId(id)
-            }}
-            key={id}
-          >
+          <button key={id} onClick={() => handleMarkerFocus({ lat, long, id })}>
             {id}
           </button>
         ))}
@@ -94,7 +94,7 @@ const HomePage = () => {
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
         onDrag={() => setCurrentEventId(null)}
-        mapLib={import('mapbox-gl')}
+        mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
         mapboxAccessToken={process.env.MAPBOX_PUBLIC_KEY}
