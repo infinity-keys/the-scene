@@ -13,6 +13,7 @@
     # Add any ENV vars that should be available to the web side to this array
     # See https://redwoodjs.com/docs/environment-variables#web
     "CLERK_PUBLISHABLE_KEY",
+    "MAPBOX_PUBLIC_KEY"
   ]
 [api]
   port = 8911

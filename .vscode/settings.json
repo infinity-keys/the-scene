@@ -7,5 +7,6 @@
   },
   "[prisma]": {
     "editor.formatOnSave": true
-  }
+  },
+  "cSpell.words": ["geolocated", "mapbox"]
 }
