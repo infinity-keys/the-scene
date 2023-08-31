@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useMutation } from '@redwoodjs/web'
 import {
   CreateSceneMutation,
   CreateSceneMutationVariables,
 } from 'types/graphql'
 import Webcam from 'react-webcam'
+import { toast } from '@redwoodjs/web/dist/toast'
+import { useGeolocated } from 'react-geolocated'
 
 const CREATE_SCENE_MUTATION = gql`
   mutation CreateSceneMutation($input: CreateSceneInput!) {
@@ -14,18 +16,20 @@ const CREATE_SCENE_MUTATION = gql`
   }
 `
 
-function fileToBase64(file): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
-}
+// @TODO: show login before camera
 
 const CreateScene = () => {
-  const [imageObject, setImageObject] = useState(null)
-  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+  const [imageSrc, setImageSrc] = useState('')
+  const [showForm, setShowForm] = useState(false)
+  const [bandName, setBandName] = useState('')
+  const webcamRef = useRef<Webcam>(null)
+
+  const { coords } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  })
 
   const [createScene, { loading }] = useMutation<
     CreateSceneMutation,
@@ -36,104 +40,106 @@ const CreateScene = () => {
     },
   })
 
-  const cameraInput = useRef<HTMLInputElement>(null)
-  const uploadInput = useRef<HTMLInputElement>(null)
-  const webcamRef = React.useRef(null)
+  const capture = useCallback(() => {
+    if (!webcamRef.current) {
+      return toast.error('Unable to connect to webcam')
+    }
 
-  const capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot()
-    console.log('imageSrc: ', imageSrc)
+    const screenshot = webcamRef.current.getScreenshot()
+
+    if (!screenshot) {
+      return toast.error('Unable to take image')
+    }
+
+    setImageSrc(screenshot)
   }, [webcamRef])
 
-  const handleCameraClick = () => {
-    if (!cameraInput?.current) return
+  const handleCreate = () => {
+    if (!imageSrc) {
+      return toast.error('Missing image data')
+    }
 
-    cameraInput?.current.click()
-  }
-  const handleUploadClick = () => {
-    if (!uploadInput?.current) return
+    if (!coords) {
+      return toast.error('Missing location data')
+    }
 
-    uploadInput?.current.click()
-  }
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0]
-    const base64File = await fileToBase64(file)
-    console.log('file: ', base64File)
-    const response = await createScene({
+    createScene({
       variables: {
         input: {
-          imageData: base64File,
-          title: 'one',
-          latitude: 1.2,
-          longitude: 3.2,
+          imageData: imageSrc,
+          title: bandName,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
         },
       },
     })
   }
 
-  const handleImageChange = (event) => {
-    setImageObject({
-      imagePreview: URL.createObjectURL(event.target.files[0]),
-      imageFile: event.target.files[0],
-    })
-  }
-
-  useEffect(() => {
-    setIsMobile(navigator.maxTouchPoints > 0)
-  }, [])
-
   return (
-    <div>
-      <Webcam
-        audio={false}
-        height={540}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        width={540}
-        videoConstraints={{
-          width: { min: 360, ideal: 540, max: 540 },
-          height: { min: 360, ideal: 540, max: 540 },
-          facingMode: 'user',
-          aspectRatio: 1,
-        }}
-      />
-      <button onClick={capture}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={72}
-          height={72}
-          fill="none"
-        >
-          <circle
-            cx={36}
-            cy={36}
-            r={34}
-            fill="#D9D9D9"
-            fillOpacity={0.2}
-            stroke="#fff"
-            strokeWidth={4}
-          />
-          <circle cx={36} cy={36} r={30} fill="#fff" />
-        </svg>
-      </button>
-      <button onClick={handleCameraClick}>Take Photo</button>
-      <input
-        style={{ display: 'none' }}
-        type="file"
-        accept="image/*"
-        capture={'environment'}
-        ref={cameraInput}
-        // onChange={handleImageChange}
-        onChange={handleFileChange}
-      />
+    <div className="relative flex min-h-[calc(100vh-100px)] items-start justify-center pt-12">
+      <div className="aspect-square w-full max-w-[540px]">
+        {imageSrc ? (
+          <div className="text-white">
+            <img className="w-full" src={imageSrc} />
 
-      {imageObject && (
-        <div
-          className="h-[400px] w-[400px] bg-cover bg-center"
-          style={{ backgroundImage: `url(${imageObject.imagePreview})` }}
-        ></div>
-      )}
+            <div className="absolute bottom-6 flex w-full justify-center gap-8">
+              <button onClick={() => setImageSrc('')}>back</button>
+              {!showForm ? (
+                <button onClick={() => setShowForm(true)}>next</button>
+              ) : (
+                <button onClick={handleCreate}>next</button>
+              )}
+            </div>
+
+            {showForm && (
+              <div className="absolute top-1/2 flex w-full -translate-y-1/2 justify-center">
+                <input
+                  className="bg-black px-3 py-1 text-center font-black uppercase"
+                  placeholder="Who's playing?"
+                  autoFocus
+                  onChange={(e) => setBandName(e.target.value)}
+                  value={bandName}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="h-full bg-neutral-900">
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={{
+                width: { ideal: 1080, max: 1080 },
+                height: { ideal: 1080, max: 1080 },
+                facingMode: 'environment',
+                aspectRatio: 1,
+              }}
+            />
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+              <button onClick={capture}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={72}
+                  height={72}
+                  fill="none"
+                >
+                  <circle
+                    cx={36}
+                    cy={36}
+                    r={34}
+                    fill="#D9D9D9"
+                    fillOpacity={0.2}
+                    stroke="#fff"
+                    strokeWidth={4}
+                  />
+                  <circle cx={36} cy={36} r={30} fill="#fff" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

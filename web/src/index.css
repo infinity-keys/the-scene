@@ -11,3 +11,9 @@
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
+@layer base {
+  html {
+    @apply bg-neutral-750;
+  }
+}

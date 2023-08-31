@@ -32,7 +32,6 @@ export const createScene: MutationResolvers['createScene'] = async ({
     ...options,
     folder: 'the-scene',
   })
-  console.log(result)
 
   return db.scene.create({
     data: {
