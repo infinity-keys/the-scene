@@ -11,3 +11,8 @@
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+@layer base {
+  html {
+    @apply bg-[#202020];
+  }
+}
