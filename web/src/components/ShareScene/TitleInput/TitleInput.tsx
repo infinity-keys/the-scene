@@ -1,3 +1,5 @@
+const TITLE_MAX_LENGTH = 40
+
 const TitleInput = ({
   bandName,
   setBandName,
@@ -10,13 +12,23 @@ const TitleInput = ({
       <label htmlFor="title" className="pb-2">
         What is the band called?
       </label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value={bandName}
-        onChange={(e) => setBandName(e.target.value)}
-      />
+      <div className="relative">
+        <textarea
+          className="w-full pr-16 uppercase"
+          rows={2}
+          name="title"
+          id="title"
+          value={bandName}
+          onChange={(e) => {
+            if (e.target.value.length <= TITLE_MAX_LENGTH) {
+              setBandName(e.target.value)
+            }
+          }}
+        />
+        <p className="absolute bottom-4 right-4 text-xs">
+          {bandName.length}/{TITLE_MAX_LENGTH}
+        </p>
+      </div>
     </div>
   )
 }

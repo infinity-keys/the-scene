@@ -14,6 +14,7 @@ import InfoInput from 'src/components/ShareScene/InfoInput/InfoInput'
 import TitleInput from 'src/components/ShareScene/TitleInput/TitleInput'
 import Wrapper from 'src/components/ShareScene/Wrapper/Wrapper'
 import { navigate, routes } from '@redwoodjs/router'
+import { UNNECESSARY_WHITE_SPACE, isValidLink } from 'src/lib/regex'
 
 const CREATE_SCENE_MUTATION = gql`
   mutation CreateSceneMutation($input: CreateSceneInput!) {
@@ -28,6 +29,8 @@ enum FormProgress {
   TITLE,
   INFO,
 }
+
+const MINIMUM_TITLE_LENGTH = 3
 
 // @TODO: block access if user hasn't enabled geolocation
 
@@ -77,13 +80,17 @@ const SharePage = () => {
       )
     }
 
+    if (bandLink && !isValidLink(bandLink)) {
+      return toast.error('Please provide a valid link.')
+    }
+
     createScene({
       variables: {
         input: {
           imageData: imageSrc,
-          title: bandName,
-          info: bandInfo,
-          link: bandLink,
+          title: bandName.trim().replace(/[\s\r\n]+/g, ' '),
+          info: bandInfo.trim(),
+          link: bandLink.trim(),
           latitude: coords.latitude,
           longitude: coords.longitude,
         },
@@ -126,9 +133,15 @@ const SharePage = () => {
       <div className="w-full max-w-[540px]">
         <div className="aspect-square">
           {imageSrc ? (
-            <div className="relative flex items-center justify-center">
+            <div className="overflow-anywhere relative flex items-center justify-center">
               <img className="w-full" src={imageSrc} />
-              {bandName && <p className="absolute">{bandName}</p>}
+              {bandName && (
+                <div className="absolute -rotate-2 p-8">
+                  <span className="paper inline  bg-[url('/images/paper.webp')] bg-cover bg-no-repeat px-2 py-1 text-2xl font-black uppercase leading-[2.8rem] text-black">
+                    {bandName}
+                  </span>
+                </div>
+              )}
             </div>
           ) : (
             <CameraCapture setImageSrc={setImageSrc} />
@@ -150,7 +163,7 @@ const SharePage = () => {
               <FormButtonGroup
                 previous={() => setFormProgress(FormProgress.IMAGE)}
                 next={() => setFormProgress(FormProgress.INFO)}
-                nextDisabled={bandName.length < 3}
+                nextDisabled={bandName.trim().length < MINIMUM_TITLE_LENGTH}
               />
             </div>
           )}

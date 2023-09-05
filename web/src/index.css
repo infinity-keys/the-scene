@@ -21,10 +21,19 @@
 
   input,
   textarea {
-    @apply rounded-sm bg-white/20 px-2 py-1;
+    @apply rounded-sm bg-neutral-600 p-4;
   }
 
   textarea {
     @apply resize-none;
+  }
+}
+@layer components {
+  .paper {
+    box-decoration-break: clone;
+  }
+
+  .overflow-anywhere {
+    overflow-wrap: anywhere;
   }
 }

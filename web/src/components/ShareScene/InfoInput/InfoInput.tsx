@@ -1,3 +1,5 @@
+const INFO_MAX_LENGTH = 140
+
 const InfoInput = ({
   bandInfo,
   setBandInfo,
@@ -15,12 +17,23 @@ const InfoInput = ({
         Any comments? (optional)
       </label>
 
-      <textarea
-        name="comment"
-        id="comment"
-        onChange={(e) => setBandInfo(e.target.value)}
-        value={bandInfo}
-      />
+      <div className="relative">
+        <textarea
+          className="w-full pr-16"
+          rows={3}
+          name="comment"
+          id="comment"
+          value={bandInfo}
+          onChange={(e) => {
+            if (e.target.value.length <= INFO_MAX_LENGTH) {
+              setBandInfo(e.target.value)
+            }
+          }}
+        />
+        <p className="absolute bottom-4 right-4 text-xs">
+          {bandInfo.length}/{INFO_MAX_LENGTH}
+        </p>
+      </div>
 
       <label htmlFor="link" className="pb-2 pt-6">
         Share a link to the band playing (optional)
@@ -31,6 +44,7 @@ const InfoInput = ({
         name="link"
         id="link"
         value={bandLink}
+        className="py-2"
         onChange={(e) => setBandLink(e.target.value)}
       />
     </div>
