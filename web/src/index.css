@@ -16,6 +16,15 @@
 
 @layer base {
   html {
-    @apply bg-neutral-750;
+    @apply bg-neutral-750 text-white;
+  }
+
+  input,
+  textarea {
+    @apply rounded-sm bg-white/20 px-2 py-1;
+  }
+
+  textarea {
+    @apply resize-none;
   }
 }
