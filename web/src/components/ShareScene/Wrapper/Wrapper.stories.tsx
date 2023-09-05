@@ -12,14 +12,14 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import CreateScene from "./CreateScene";
+import Wrapper from "./Wrapper";
 
-const meta: Meta<typeof CreateScene> = {
-  component: CreateScene,
+const meta: Meta<typeof Wrapper> = {
+  component: Wrapper,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof CreateScene>;
+type Story = StoryObj<typeof Wrapper>;
 
 export const Primary: Story = {};

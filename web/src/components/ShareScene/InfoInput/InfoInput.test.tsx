@@ -1,14 +1,14 @@
 import { render } from "@redwoodjs/testing/web";
 
-import CreateScene from "./CreateScene";
+import InfoInput from "./InfoInput";
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe("CreateScene", () => {
+describe("InfoInput", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<CreateScene />);
+      render(<InfoInput />);
     }).not.toThrow();
   });
 });
