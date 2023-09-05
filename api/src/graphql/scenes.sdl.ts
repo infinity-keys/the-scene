@@ -6,6 +6,8 @@ export const schema = gql`
     latitude: Float!
     longitude: Float!
     title: String!
+    info: String
+    link: String
     coverImageId: String!
   }
 
@@ -18,6 +20,8 @@ export const schema = gql`
     latitude: Float!
     longitude: Float!
     title: String!
+    info: String
+    link: String
     imageData: String!
   }
 
@@ -25,6 +29,8 @@ export const schema = gql`
     latitude: Float
     longitude: Float
     title: String
+    info: String
+    link: String
     imageData: String
   }
 

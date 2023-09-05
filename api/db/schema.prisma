@@ -26,4 +26,6 @@ model Scene {
   longitude    Float
   title        String
   coverImageId String
+  info         String?
+  link         String?
 }
