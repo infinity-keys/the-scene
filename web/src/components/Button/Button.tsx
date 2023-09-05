@@ -8,23 +8,33 @@ interface ButtonProps extends PropsWithChildren {
   outline?: boolean
   fullWidth?: boolean
   type?: 'button' | 'submit' | 'reset'
+  border?: boolean
+  color?: boolean
   onClick?: () => void
 }
 
 const Button = ({
-  children,
+  children = 'click here',
   to,
   href,
   onClick,
   type,
+  border = true,
+  color = true,
   outline = false,
   fullWidth = false,
 }: ButtonProps) => {
   const classes = clsx(
-    'border-2 border-accent hover:bg-accent-dark hover:border-accent-dark transition-colors text-white rounded-full px-4 font-medium py-[2px]',
+    "border bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white rounded-none px-4 font-medium py-[2px] drop-shadow-[0_0_10px_rgba(0,0,0,1)] bg-[url('/images/static.webp')]",
     { 'bg-neutral-750': outline },
     { 'bg-accent': !outline },
-    { 'w-full': fullWidth }
+    { 'w-full': fullWidth },
+    // Borders
+    { 'border-white': border },
+    { 'border-accent': !border },
+    // Color
+    { 'bg-black': color },
+    { 'bg-accent': !color }
   )
 
   if (to) {
