@@ -45,7 +45,7 @@ model SceneRating {
 
   scene   Scene?  @relation(fields: [sceneId], references: [id])
   sceneId String?
-  user    User?   @relation(fields: [userId], references: [id])
+  user    User?   @relation(fields: [userId], references: [authId])
   userId  String?
 
   @@unique([userId, sceneId])

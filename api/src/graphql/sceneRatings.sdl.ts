@@ -39,6 +39,10 @@ export const schema = gql`
       id: String!
       input: UpdateSceneRatingInput!
     ): SceneRating! @requireAuth
+    upsertSceneRating(
+      sceneId: String!
+      input: CreateSceneRatingInput!
+    ): SceneRating! @requireAuth
     deleteSceneRating(id: String!): SceneRating! @requireAuth
   }
-`;
+`
