@@ -27,8 +27,8 @@ const Button = ({
     // Width
     { 'w-full': fullWidth },
     // Borders
-    { 'border-white': accent },
-    { 'border-accent': !accent },
+    { 'border-white': !accent },
+    { 'border-accent': accent },
     // Disabled Button
     {
       'bg-neutral-500 border-neutral-500 hover:border-neutral-500 hover:bg-neutral-500':
