@@ -56,3 +56,9 @@ export const deleteScene: MutationResolvers['deleteScene'] = ({ id }) => {
     where: { id },
   })
 }
+
+export const Scene: SceneRelationResolvers = {
+  ratings: (_obj, { root }) => {
+    return db.scene.findUnique({ where: { id: root?.id } }).ratings()
+  },
+}
