@@ -15,6 +15,15 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
+      animation: {
+        'fade-out': 'fade-out .6s 2s linear forwards',
+      },
+      keyframes: {
+        'fade-out': {
+          '0%': { opacity: '100%' },
+          '100%': { opacity: '0%' },
+        },
+      },
     },
   },
   plugins: [],

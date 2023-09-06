@@ -5,6 +5,7 @@
   "dependencies": {
     "@redwoodjs/api": "6.1.0",
     "@redwoodjs/auth-clerk-api": "6.1.0",
-    "@redwoodjs/graphql-server": "6.1.0"
+    "@redwoodjs/graphql-server": "6.1.0",
+    "cloudinary": "^1.40.0"
   }
 }

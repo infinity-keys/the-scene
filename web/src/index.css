@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap');
+
 /**
  * START --- SETUP TAILWINDCSS EDIT
  *
@@ -11,8 +13,27 @@
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
 @layer base {
   html {
-    @apply bg-[#202020];
+    @apply bg-neutral-750 text-white;
+  }
+
+  input,
+  textarea {
+    @apply rounded-sm bg-neutral-600 p-4;
+  }
+
+  textarea {
+    @apply resize-none;
+  }
+}
+@layer components {
+  .paper {
+    box-decoration-break: clone;
+  }
+
+  .overflow-anywhere {
+    overflow-wrap: anywhere;
   }
 }

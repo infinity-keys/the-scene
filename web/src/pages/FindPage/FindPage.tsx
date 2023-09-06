@@ -3,12 +3,19 @@ import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGeolocated } from 'react-geolocated'
+import ScenesCell from 'src/components/ScenesCell'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { Scene } from 'types/graphql'
+
+export type MapScene = Pick<
+  Scene,
+  'id' | 'coverImageId' | 'latitude' | 'longitude' | 'title' | 'link' | 'info'
+>
 
 const FindPage = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()
 
-  const [currentEventId, setCurrentEventId] = useState<string>(null)
+  const [selectedScene, setSelectedScene] = useState<MapScene | null>(null)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
@@ -16,26 +23,15 @@ const FindPage = () => {
   })
 
   const handleMarkerFocus = useCallback(
-    ({ lat, long, id }) => {
-      setViewState({ latitude: lat, longitude: long, zoom: 15 })
-      setCurrentEventId(id)
+    (scene: MapScene) => {
+      setViewState({
+        latitude: scene.latitude,
+        longitude: scene.longitude,
+        zoom: 15,
+      })
+      setSelectedScene(scene)
     },
-    [setViewState, setCurrentEventId]
-  )
-
-  const markers = useMemo(
-    () =>
-      testData.map(({ lat, long, id }) => (
-        <Marker
-          latitude={lat}
-          longitude={long}
-          key={id}
-          onClick={() => handleMarkerFocus({ lat, long, id })}
-        >
-          <span className="text-3xl">🎸</span>
-        </Marker>
-      )),
-    [testData]
+    [setViewState, setSelectedScene]
   )
 
   // The user's current location
@@ -69,28 +65,20 @@ const FindPage = () => {
           <button onClick={() => logIn()}>Log In</button>
         )}
 
-        {/* Shows list of events */}
-        {testData.map(({ id, lat, long }) => (
-          <button onClick={() => handleMarkerFocus({ lat, long, id })}>
-            {id}
-          </button>
-        ))}
-
         {/* shows selected event info */}
-        {currentEventId && (
+        {selectedScene && (
           <div className="bg-black">
-            <p>{testData.find(({ id }) => id === currentEventId).id}</p>
-            <p>{testData.find(({ id }) => id === currentEventId).title}</p>
+            <p>{selectedScene.title}</p>
+            <p>{selectedScene.info}</p>
           </div>
         )}
       </div>
-
       <Map
         {...viewState}
         reuseMaps
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
-        onDrag={() => setCurrentEventId(null)}
+        onDrag={() => setSelectedScene(null)}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
@@ -104,73 +92,10 @@ const FindPage = () => {
           />
         )}
 
-        {markers}
+        <ScenesCell handleMarkerFocus={handleMarkerFocus} />
       </Map>
     </div>
   )
 }
 
 export default FindPage
-
-const testData = [
-  {
-    lat: 42.877742,
-    long: -107.448006,
-    id: 'Location1',
-    title: 'Title of Event 1',
-  },
-  {
-    lat: 44.020882,
-    long: -107.955234,
-    id: 'Location2',
-    title: 'Title of Event 2',
-  },
-  {
-    lat: 43.754787,
-    long: -110.736289,
-    id: 'Location3',
-    title: 'Title of Event 3',
-  },
-  {
-    lat: 41.314755,
-    long: -105.587806,
-    id: 'Location4',
-    title: 'Title of Event 4',
-  },
-  {
-    lat: 42.850797,
-    long: -106.324661,
-    id: 'Location5',
-    title: 'Title of Event 5',
-  },
-  {
-    lat: 43.075967,
-    long: -107.290283,
-    id: 'Location6',
-    title: 'Title of Event 6',
-  },
-  {
-    lat: 42.8666,
-    long: -109.864731,
-    id: 'Location7',
-    title: 'Title of Event 7',
-  },
-  {
-    lat: 44.798626,
-    long: -106.961725,
-    id: 'Location8',
-    title: 'Title of Event 8',
-  },
-  {
-    lat: 42.866793,
-    long: -109.881067,
-    id: 'Location9',
-    title: 'Title of Event 9',
-  },
-  {
-    lat: 43.173587,
-    long: -110.946226,
-    id: 'Location10',
-    title: 'Title of Event 10',
-  },
-]
