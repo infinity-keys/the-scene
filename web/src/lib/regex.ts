@@ -3,4 +3,5 @@ export const isValidLink = (link: string) => {
   return regex.test(link)
 }
 
-export const UNNECESSARY_WHITE_SPACE = /[\s\r\n]+/g
+export const removeWhiteSpace = (text: string) =>
+  text.replace(/[\s\r\n]+/g, ' ')

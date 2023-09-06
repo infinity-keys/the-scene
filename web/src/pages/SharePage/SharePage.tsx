@@ -1,20 +1,21 @@
 import { useState } from 'react'
 import { useMutation } from '@redwoodjs/web'
-import { useAuth } from 'src/auth'
+import { toast, LoaderIcon } from '@redwoodjs/web/dist/toast'
+import { navigate, routes } from '@redwoodjs/router'
 import {
   CreateSceneMutation,
   CreateSceneMutationVariables,
 } from 'types/graphql'
-import { toast, LoaderIcon } from '@redwoodjs/web/dist/toast'
 import { useGeolocated } from 'react-geolocated'
+import { useAuth } from 'src/auth'
+import { isValidLink, removeWhiteSpace } from 'src/lib/regex'
 import Button from 'src/components/Button/Button'
 import CameraCapture from 'src/components/ShareScene/CameraCapture/CameraCapture'
 import FormButtonGroup from 'src/components/ShareScene/FormButtonGroup/FormButtonGroup'
 import InfoInput from 'src/components/ShareScene/InfoInput/InfoInput'
 import TitleInput from 'src/components/ShareScene/TitleInput/TitleInput'
 import Wrapper from 'src/components/ShareScene/Wrapper/Wrapper'
-import { navigate, routes } from '@redwoodjs/router'
-import { UNNECESSARY_WHITE_SPACE, isValidLink } from 'src/lib/regex'
+import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 
 const CREATE_SCENE_MUTATION = gql`
   mutation CreateSceneMutation($input: CreateSceneInput!) {
@@ -88,7 +89,7 @@ const SharePage = () => {
       variables: {
         input: {
           imageData: imageSrc,
-          title: bandName.trim().replace(/[\s\r\n]+/g, ' '),
+          title: removeWhiteSpace(bandName.trim()),
           info: bandInfo.trim(),
           link: bandLink.trim(),
           latitude: coords.latitude,
@@ -136,10 +137,8 @@ const SharePage = () => {
             <div className="overflow-anywhere relative flex items-center justify-center">
               <img className="w-full" src={imageSrc} />
               {bandName && (
-                <div className="absolute -rotate-2 p-8">
-                  <span className="paper inline  bg-[url('/images/paper.webp')] bg-cover bg-no-repeat px-2 py-1 text-2xl font-black uppercase leading-[2.8rem] text-black">
-                    {bandName}
-                  </span>
+                <div className="absolute p-8">
+                  <PaperTitle>{bandName}</PaperTitle>
                 </div>
               )}
             </div>

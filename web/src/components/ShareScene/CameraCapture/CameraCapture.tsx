@@ -16,14 +16,11 @@ const CameraCapture = ({
 
     const screenshot = webcamRef.current.getScreenshot()
 
-    // @TODO: remove this
-    setImageSrc(placeholder)
+    if (!screenshot) {
+      return toast.error('Unable to take image')
+    }
 
-    // if (!screenshot) {
-    //   return toast.error('Unable to take image')
-    // }
-
-    // setImageSrc(screenshot)
+    setImageSrc(screenshot)
   }, [webcamRef])
 
   return (
