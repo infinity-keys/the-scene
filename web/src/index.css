@@ -13,8 +13,27 @@
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
 @layer base {
   html {
-    @apply bg-[#202020];
+    @apply bg-neutral-750 text-white;
+  }
+
+  input,
+  textarea {
+    @apply rounded-sm bg-neutral-600 p-4;
+  }
+
+  textarea {
+    @apply resize-none;
+  }
+}
+@layer components {
+  .paper {
+    box-decoration-break: clone;
+  }
+
+  .overflow-anywhere {
+    overflow-wrap: anywhere;
   }
 }
