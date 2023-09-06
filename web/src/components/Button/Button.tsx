@@ -7,6 +7,7 @@ interface ButtonProps extends PropsWithChildren {
   href?: string
   outline?: boolean
   fullWidth?: boolean
+  disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => void
 }
@@ -19,11 +20,16 @@ const Button = ({
   type,
   outline = false,
   fullWidth = false,
+  disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
     'border-2 border-accent hover:bg-accent-dark hover:border-accent-dark transition-colors text-white rounded-full px-4 font-medium py-[2px]',
     { 'bg-neutral-750': outline },
     { 'bg-accent': !outline },
+    {
+      'bg-neutral-500 border-neutral-500 hover:border-neutral-500 hover:bg-neutral-500':
+        disabled,
+    },
     { 'w-full': fullWidth }
   )
 
@@ -49,7 +55,12 @@ const Button = ({
   }
 
   return (
-    <button className={classes} type={type} onClick={onClick}>
+    <button
+      className={classes}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   )
