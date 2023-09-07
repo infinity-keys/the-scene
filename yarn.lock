@@ -10544,6 +10544,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"boring-avatars@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "boring-avatars@npm:1.10.1"
+  checksum: ed5eeb9ad692aab47c35828b743a194b122aeb0573188c6696081c74ca485be0ad98951ee7da2e9ec1f55f4a8ca24d8e1632f854b214a894703cd26bdf1ca4ad
+  languageName: node
+  linkType: hard
+
 "boxen@npm:5.1.2":
   version: 5.1.2
   resolution: "boxen@npm:5.1.2"
@@ -25287,6 +25294,7 @@ __metadata:
     "@redwoodjs/vite": 6.1.0
     "@redwoodjs/web": 6.1.0
     autoprefixer: ^10.4.15
+    boring-avatars: ^1.10.1
     clsx: ^2.0.0
     mapbox-gl: ^2.15.0
     postcss: ^8.4.28

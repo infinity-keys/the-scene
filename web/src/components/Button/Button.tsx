@@ -23,7 +23,7 @@ const Button = ({
   disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
-    'border-2 border-accent hover:bg-accent-dark hover:border-accent-dark transition-colors text-white rounded-full px-4 font-medium py-[2px]',
+    'border-2 border-accent hover:bg-accent-dark hover:border-accent-dark transition-colors text-white rounded-full px-4 font-medium py-[2px] inline-block text-center',
     { 'bg-neutral-750': outline },
     { 'bg-accent': !outline },
     {

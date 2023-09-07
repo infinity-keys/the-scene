@@ -1,14 +1,26 @@
+import { useState } from 'react'
 import { MapScene } from 'src/pages/FindPage/FindPage'
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
+import RateSceneCell from 'src/components/RateSceneCell'
+import SceneDetails from 'src/components/SceneDetails/SceneDetails'
+
+enum ScreenProgress {
+  OVERVIEW,
+  RATE,
+  DETAILS,
+}
 
 const InfoCard = ({ scene }: { scene: MapScene }) => {
+  const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
+    ScreenProgress.OVERVIEW
+  )
   // @TODO: use real data
   const crowded = false
   const great = false
 
   return (
-    <div className="animate-fade-in relative w-full max-w-md font-semibold text-white shadow-lg">
+    <div className="animate-fade-in relative w-full max-w-md text-white shadow-lg">
       <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
       <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
@@ -44,16 +56,45 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
           </div>
         </div>
 
-        <div className="flex items-baseline gap-2 p-4">
-          <p className="text-base font-bold">Live Now!</p>
-          <p className="text-xs">(0.2mi away)</p>
-        </div>
+        <div className="p-4">
+          {screenProgress === ScreenProgress.OVERVIEW && (
+            <>
+              <div className="flex items-baseline gap-2">
+                <p className="text-base font-bold">Live Now!</p>
+                <p className="text-xs">(0.2mi away)</p>
+              </div>
 
-        <div className="flex gap-3 p-4 pt-0">
-          <Button outline fullWidth>
-            + INFO
-          </Button>
-          <Button fullWidth>Rate This Scene</Button>
+              <div className="flex gap-3 pt-4">
+                <Button
+                  outline
+                  fullWidth
+                  onClick={() => setScreenProgress(ScreenProgress.DETAILS)}
+                >
+                  + INFO
+                </Button>
+                <Button
+                  fullWidth
+                  onClick={() => setScreenProgress(ScreenProgress.RATE)}
+                >
+                  Rate This Scene
+                </Button>
+              </div>
+            </>
+          )}
+
+          {screenProgress === ScreenProgress.RATE && (
+            <RateSceneCell
+              id={scene.id}
+              previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
+            />
+          )}
+
+          {screenProgress === ScreenProgress.DETAILS && (
+            <SceneDetails
+              scene={scene}
+              previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
+            />
+          )}
         </div>
       </div>
     </div>
