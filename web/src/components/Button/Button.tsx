@@ -23,7 +23,7 @@ const Button = ({
   disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
-    "border bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white rounded-none px-4 font-medium py-[2px] drop-shadow-[0_0_10px_rgba(0,0,0,1)] bg-[url('/images/static.webp')]",
+    "button-text-shadow border bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white rounded-none px-4 font-medium py-[2px] bg-[url('/images/static.webp')]",
     // Width
     { 'w-full': fullWidth },
     // Borders
