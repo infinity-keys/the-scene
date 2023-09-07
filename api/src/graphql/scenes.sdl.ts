@@ -6,9 +6,10 @@ export const schema = gql`
     latitude: Float!
     longitude: Float!
     title: String!
+    coverImageId: String!
     info: String
     link: String
-    coverImageId: String!
+    ratings: [SceneRating]!
   }
 
   type Query {
@@ -20,18 +21,18 @@ export const schema = gql`
     latitude: Float!
     longitude: Float!
     title: String!
+    coverImageId: String!
     info: String
     link: String
-    imageData: String!
   }
 
   input UpdateSceneInput {
     latitude: Float
     longitude: Float
     title: String
+    coverImageId: String
     info: String
     link: String
-    imageData: String
   }
 
   type Mutation {

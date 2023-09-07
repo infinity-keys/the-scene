@@ -1,14 +1,22 @@
-import { useAuth } from 'src/auth'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGeolocated } from 'react-geolocated'
+import { Scene } from 'types/graphql'
+import { useAuth } from 'src/auth'
+import ScenesCell from 'src/components/ScenesCell'
+import InfoCard from 'src/components/InfoCard/InfoCard'
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+export type MapScene = Pick<
+  Scene,
+  'id' | 'coverImageId' | 'latitude' | 'longitude' | 'title' | 'link' | 'info'
+>
 
 const FindPage = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()
 
-  const [currentEventId, setCurrentEventId] = useState<string>(null)
+  const [selectedScene, setSelectedScene] = useState<MapScene | null>(null)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
@@ -16,26 +24,16 @@ const FindPage = () => {
   })
 
   const handleMarkerFocus = useCallback(
-    ({ lat, long, id }) => {
-      setViewState({ latitude: lat, longitude: long, zoom: 15 })
-      setCurrentEventId(id)
+    (scene: MapScene) => {
+      setViewState({
+        // Center map below pin to account for card
+        latitude: scene.latitude - 0.003,
+        longitude: scene.longitude,
+        zoom: 15,
+      })
+      setSelectedScene(scene)
     },
-    [setViewState, setCurrentEventId]
-  )
-
-  const markers = useMemo(
-    () =>
-      testData.map(({ lat, long, id }) => (
-        <Marker
-          latitude={lat}
-          longitude={long}
-          key={id}
-          onClick={() => handleMarkerFocus({ lat, long, id })}
-        >
-          <span className="text-3xl">🎸</span>
-        </Marker>
-      )),
-    [testData]
+    [setViewState, setSelectedScene]
   )
 
   // The user's current location
@@ -58,7 +56,7 @@ const FindPage = () => {
 
   return (
     <div className="relative">
-      <div className="fixed left-0 top-0 z-20 w-full bg-gray-600 text-white">
+      {/* <div className="fixed left-0 top-0 z-20 w-full bg-gray-600 text-white">
         {isAuthenticated ? (
           <div>
             <p>{userMetadata?.username}</p>
@@ -68,109 +66,38 @@ const FindPage = () => {
         ) : (
           <button onClick={() => logIn()}>Log In</button>
         )}
-
-        {/* Shows list of events */}
-        {testData.map(({ id, lat, long }) => (
-          <button onClick={() => handleMarkerFocus({ lat, long, id })}>
-            {id}
-          </button>
-        ))}
-
-        {/* shows selected event info */}
-        {currentEventId && (
-          <div className="bg-black">
-            <p>{testData.find(({ id }) => id === currentEventId).id}</p>
-            <p>{testData.find(({ id }) => id === currentEventId).title}</p>
-          </div>
-        )}
-      </div>
+      </div> */}
 
       <Map
         {...viewState}
         reuseMaps
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
-        onDrag={() => setCurrentEventId(null)}
+        onDrag={() => setSelectedScene(null)}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
         mapboxAccessToken={process.env.MAPBOX_PUBLIC_KEY}
       >
         {coords && (
-          <Marker
-            longitude={coords?.longitude}
-            latitude={coords?.latitude}
-            color="red"
-          />
+          <Marker longitude={coords?.longitude} latitude={coords?.latitude}>
+            <div className="relative flex h-4 w-4 items-center justify-center rounded-full">
+              <div className="absolute inset-0 animate-pulse rounded-full bg-accent" />
+              <div className="h-3 w-3 rounded-full bg-accent" />
+            </div>
+          </Marker>
         )}
 
-        {markers}
+        <ScenesCell handleMarkerFocus={handleMarkerFocus} />
       </Map>
+
+      {selectedScene && (
+        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
+          <InfoCard scene={selectedScene} />
+        </div>
+      )}
     </div>
   )
 }
 
 export default FindPage
-
-const testData = [
-  {
-    lat: 42.877742,
-    long: -107.448006,
-    id: 'Location1',
-    title: 'Title of Event 1',
-  },
-  {
-    lat: 44.020882,
-    long: -107.955234,
-    id: 'Location2',
-    title: 'Title of Event 2',
-  },
-  {
-    lat: 43.754787,
-    long: -110.736289,
-    id: 'Location3',
-    title: 'Title of Event 3',
-  },
-  {
-    lat: 41.314755,
-    long: -105.587806,
-    id: 'Location4',
-    title: 'Title of Event 4',
-  },
-  {
-    lat: 42.850797,
-    long: -106.324661,
-    id: 'Location5',
-    title: 'Title of Event 5',
-  },
-  {
-    lat: 43.075967,
-    long: -107.290283,
-    id: 'Location6',
-    title: 'Title of Event 6',
-  },
-  {
-    lat: 42.8666,
-    long: -109.864731,
-    id: 'Location7',
-    title: 'Title of Event 7',
-  },
-  {
-    lat: 44.798626,
-    long: -106.961725,
-    id: 'Location8',
-    title: 'Title of Event 8',
-  },
-  {
-    lat: 42.866793,
-    long: -109.881067,
-    id: 'Location9',
-    title: 'Title of Event 9',
-  },
-  {
-    lat: 43.173587,
-    long: -110.946226,
-    id: 'Location10',
-    title: 'Title of Event 10',
-  },
-]

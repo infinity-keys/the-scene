@@ -5,6 +5,7 @@ export const schema = gql`
     updatedAt: DateTime!
     authId: String!
     username: String
+    ratings: [SceneRating]!
   }
 
   type Query {
