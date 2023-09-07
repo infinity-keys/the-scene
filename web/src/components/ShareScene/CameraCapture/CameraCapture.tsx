@@ -37,7 +37,7 @@ const CameraCapture = ({
             aspectRatio: 1,
           }}
         />
-        <p className="animate-fade-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-3 py-1">
+        <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-fade-out bg-black px-3 py-1">
           Snap a photo to start!
         </p>
       </div>
