@@ -1,11 +1,12 @@
-import { useAuth } from 'src/auth'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useGeolocated } from 'react-geolocated'
-import ScenesCell from 'src/components/ScenesCell'
-import 'mapbox-gl/dist/mapbox-gl.css'
 import { Scene } from 'types/graphql'
+import { useAuth } from 'src/auth'
+import ScenesCell from 'src/components/ScenesCell'
+import InfoCard from 'src/components/InfoCard/InfoCard'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 export type MapScene = Pick<
   Scene,
@@ -25,7 +26,8 @@ const FindPage = () => {
   const handleMarkerFocus = useCallback(
     (scene: MapScene) => {
       setViewState({
-        latitude: scene.latitude,
+        // Center map below pin to account for card
+        latitude: scene.latitude - 0.003,
         longitude: scene.longitude,
         zoom: 15,
       })
@@ -54,7 +56,7 @@ const FindPage = () => {
 
   return (
     <div className="relative">
-      <div className="fixed left-0 top-0 z-20 w-full bg-gray-600 text-white">
+      {/* <div className="fixed left-0 top-0 z-20 w-full bg-gray-600 text-white">
         {isAuthenticated ? (
           <div>
             <p>{userMetadata?.username}</p>
@@ -64,15 +66,8 @@ const FindPage = () => {
         ) : (
           <button onClick={() => logIn()}>Log In</button>
         )}
+      </div> */}
 
-        {/* shows selected event info */}
-        {selectedScene && (
-          <div className="bg-black">
-            <p>{selectedScene.title}</p>
-            <p>{selectedScene.info}</p>
-          </div>
-        )}
-      </div>
       <Map
         {...viewState}
         reuseMaps
@@ -85,15 +80,22 @@ const FindPage = () => {
         mapboxAccessToken={process.env.MAPBOX_PUBLIC_KEY}
       >
         {coords && (
-          <Marker
-            longitude={coords?.longitude}
-            latitude={coords?.latitude}
-            color="red"
-          />
+          <Marker longitude={coords?.longitude} latitude={coords?.latitude}>
+            <div className="relative flex h-4 w-4 items-center justify-center rounded-full">
+              <div className="absolute inset-0 animate-pulse rounded-full bg-accent" />
+              <div className="h-3 w-3 rounded-full bg-accent" />
+            </div>
+          </Marker>
         )}
 
         <ScenesCell handleMarkerFocus={handleMarkerFocus} />
       </Map>
+
+      {selectedScene && (
+        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
+          <InfoCard scene={selectedScene} />
+        </div>
+      )}
     </div>
   )
 }
