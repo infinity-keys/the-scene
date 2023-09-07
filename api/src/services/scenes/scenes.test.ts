@@ -25,17 +25,17 @@ describe("scenes", () => {
   scenario("creates a scene", async () => {
     const result = await createScene({
       input: {
-        updatedAt: "2023-08-30T19:44:29.835Z",
-        latitude: 9482530.544925066,
-        longitude: 4191764.5414028913,
+        updatedAt: "2023-09-06T17:04:49.930Z",
+        latitude: 9257899.458931338,
+        longitude: 4299314.90829875,
         title: "String",
         coverImageId: "String",
       },
     });
 
-    expect(result.updatedAt).toEqual(new Date("2023-08-30T19:44:29.835Z"));
-    expect(result.latitude).toEqual(9482530.544925066);
-    expect(result.longitude).toEqual(4191764.5414028913);
+    expect(result.updatedAt).toEqual(new Date("2023-09-06T17:04:49.930Z"));
+    expect(result.latitude).toEqual(9257899.458931338);
+    expect(result.longitude).toEqual(4299314.90829875);
     expect(result.title).toEqual("String");
     expect(result.coverImageId).toEqual("String");
   });
@@ -44,10 +44,10 @@ describe("scenes", () => {
     const original = (await scene({ id: scenario.scene.one.id })) as Scene;
     const result = await updateScene({
       id: original.id,
-      input: { updatedAt: "2023-08-31T19:44:29.835Z" },
+      input: { updatedAt: "2023-09-07T17:04:49.931Z" },
     });
 
-    expect(result.updatedAt).toEqual(new Date("2023-08-31T19:44:29.835Z"));
+    expect(result.updatedAt).toEqual(new Date("2023-09-07T17:04:49.931Z"));
   });
 
   scenario("deletes a scene", async (scenario: StandardScenario) => {

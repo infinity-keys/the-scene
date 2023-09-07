@@ -5,18 +5,18 @@ export const standard = defineScenario<Prisma.SceneCreateArgs>({
   scene: {
     one: {
       data: {
-        updatedAt: "2023-08-30T19:44:29.854Z",
-        latitude: 744856.6347940111,
-        longitude: 4611963.044656999,
+        updatedAt: "2023-09-06T17:04:49.950Z",
+        latitude: 4138074.5641227225,
+        longitude: 1417279.3418578045,
         title: "String",
         coverImageId: "String",
       },
     },
     two: {
       data: {
-        updatedAt: "2023-08-30T19:44:29.854Z",
-        latitude: 9384384.264989456,
-        longitude: 4224101.017294419,
+        updatedAt: "2023-09-06T17:04:49.950Z",
+        latitude: 2593965.105493412,
+        longitude: 6164413.710899495,
         title: "String",
         coverImageId: "String",
       },
