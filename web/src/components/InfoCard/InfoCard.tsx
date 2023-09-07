@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { MapScene } from 'src/pages/FindPage/FindPage'
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
-import RateSceneCell from 'src/components/RateSceneCell'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
+import RateScene from 'src/components/RateScene/RateScene'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -20,7 +20,7 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
   const great = false
 
   return (
-    <div className="animate-fade-in relative w-full max-w-md text-white shadow-lg">
+    <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
       <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
       <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
@@ -66,7 +66,6 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
 
               <div className="flex gap-3 pt-4">
                 <Button
-                  outline
                   fullWidth
                   onClick={() => setScreenProgress(ScreenProgress.DETAILS)}
                 >
@@ -83,8 +82,8 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
           )}
 
           {screenProgress === ScreenProgress.RATE && (
-            <RateSceneCell
-              id={scene.id}
+            <RateScene
+              sceneId={scene.id}
               previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
             />
           )}
