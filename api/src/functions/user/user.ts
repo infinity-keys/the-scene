@@ -29,6 +29,10 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
   const clerkInfo = { webhook: 'clerk' }
   const webhookLogger = logger.child({ clerkInfo })
 
+  if (!process.env.CLERK_WH_SECRET_USER) {
+    throw new Error('Missing webhook env')
+  }
+
   webhookLogger.trace('Invoked clerkWebhook function')
 
   try {
@@ -72,10 +76,12 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
         create: {
           authId: data.id,
           username: appUsername(data),
+          avatar: data.image_url || null,
         },
         update: {
           authId: data.id,
           username: appUsername(data),
+          avatar: data.image_url || null,
         },
       },
     })

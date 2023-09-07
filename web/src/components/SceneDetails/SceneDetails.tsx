@@ -30,12 +30,21 @@ const SceneDetails = ({
       </div>
 
       <div className="flex items-center justify-end gap-2 py-5 text-xs">
-        <p>Scene shared by Blah Blah</p>
-        <Avatar
-          size={30}
-          variant="marble"
-          colors={['#ed454d', '#af3444', '#732635', '#3a1821', '#000000']}
-        />
+        {scene.user?.username && <p>Scene shared by {scene.user.username}</p>}
+
+        {scene.user?.avatar ? (
+          <img
+            src={scene.user?.avatar}
+            alt=""
+            className="h-8 w-8 rounded-full"
+          />
+        ) : (
+          <Avatar
+            size={32}
+            variant="marble"
+            colors={['#ed454d', '#af3444', '#732635', '#3a1821', '#000000']}
+          />
+        )}
       </div>
 
       {scene.info && (

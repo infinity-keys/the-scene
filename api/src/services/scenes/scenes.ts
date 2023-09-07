@@ -1,6 +1,7 @@
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 import { v2 as cloudinary } from 'cloudinary'
 import { db } from 'src/lib/db'
+import { AuthenticationError } from '@redwoodjs/graphql-server'
 
 // Return "https" URLs by setting secure: true
 cloudinary.config({
@@ -27,6 +28,11 @@ export const createScene: MutationResolvers['createScene'] = async ({
   input,
 }) => {
   const { imageData, ...rest } = input
+  const authId = context.currentUser?.id
+
+  if (!authId) {
+    throw new AuthenticationError('Must be logged in to share scene.')
+  }
 
   const result = await cloudinary.uploader.upload(imageData, {
     ...options,
@@ -37,6 +43,7 @@ export const createScene: MutationResolvers['createScene'] = async ({
     data: {
       ...rest,
       coverImageId: result.public_id,
+      userId: authId,
     },
   })
 }
@@ -60,5 +67,8 @@ export const deleteScene: MutationResolvers['deleteScene'] = ({ id }) => {
 export const Scene: SceneRelationResolvers = {
   ratings: (_obj, { root }) => {
     return db.scene.findUnique({ where: { id: root?.id } }).ratings()
+  },
+  user: (_obj, { root }) => {
+    return db.scene.findUnique({ where: { id: root?.id } }).user()
   },
 }
