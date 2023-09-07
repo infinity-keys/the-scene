@@ -15,8 +15,10 @@ model User {
 
   authId   String  @unique
   username String?
+  avatar   String?
 
   ratings SceneRating[]
+  scenes  Scene[]
 }
 
 model Scene {
@@ -32,6 +34,9 @@ model Scene {
   link         String?
 
   ratings SceneRating[]
+
+  user   User?   @relation(fields: [userId], references: [authId])
+  userId String?
 }
 
 model SceneRating {

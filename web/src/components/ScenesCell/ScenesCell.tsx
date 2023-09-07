@@ -13,6 +13,10 @@ export const QUERY = gql`
       coverImageId
       latitude
       longitude
+      user {
+        avatar
+        username
+      }
     }
   }
 `
@@ -44,7 +48,7 @@ export const Success = ({
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="fill-tan h-8 w-8"
+              className="h-8 w-8 fill-tan"
               viewBox="0 0 24 24"
             >
               <path

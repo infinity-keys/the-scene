@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
-import { Scene } from 'types/graphql'
+import { Scene, User } from 'types/graphql'
 import { useAuth } from 'src/auth'
 import ScenesCell from 'src/components/ScenesCell'
 import InfoCard from 'src/components/InfoCard/InfoCard'
@@ -11,7 +11,9 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 export type MapScene = Pick<
   Scene,
   'id' | 'coverImageId' | 'latitude' | 'longitude' | 'title' | 'link' | 'info'
->
+> & {
+  user?: Pick<User, 'username' | 'avatar'> | null
+}
 
 const FindPage = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()

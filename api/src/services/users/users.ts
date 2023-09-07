@@ -52,4 +52,7 @@ export const User: UserRelationResolvers = {
   ratings: (_obj, { root }) => {
     return db.user.findUnique({ where: { id: root?.id } }).ratings()
   },
+  scenes: (_obj, { root }) => {
+    return db.user.findUnique({ where: { id: root?.id } }).scenes()
+  },
 }

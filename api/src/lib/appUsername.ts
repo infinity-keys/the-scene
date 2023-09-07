@@ -6,7 +6,7 @@ export const appUsername = (data): string => {
   return (
     data.username ||
     data.first_name ||
-    data.email_addresses[0]?.email_address ||
+    data.email_addresses[0]?.email_address.split('@')[0] ||
     data.id
   )
 }
