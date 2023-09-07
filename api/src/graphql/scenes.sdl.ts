@@ -12,11 +12,18 @@ export const schema = gql`
     ratings: [SceneRating]!
     user: User
     userId: String
+    averages: SceneAverages
+  }
+
+  type SceneAverages {
+    vibe: Boolean
+    crowded: Boolean
+    live: Boolean
   }
 
   type Query {
-    scenes: [Scene!]! @requireAuth
-    scene(id: String!): Scene @requireAuth
+    scenes: [Scene!]! @skipAuth
+    scene(id: String!): Scene @skipAuth
   }
 
   input CreateSceneInput {

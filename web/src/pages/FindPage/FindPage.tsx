@@ -10,7 +10,14 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 export type MapScene = Pick<
   Scene,
-  'id' | 'coverImageId' | 'latitude' | 'longitude' | 'title' | 'link' | 'info'
+  | 'id'
+  | 'coverImageId'
+  | 'latitude'
+  | 'longitude'
+  | 'title'
+  | 'link'
+  | 'info'
+  | 'averages'
 > & {
   user?: Pick<User, 'username' | 'avatar'> | null
 }
