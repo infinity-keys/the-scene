@@ -5,10 +5,10 @@ import { PropsWithChildren } from 'react'
 interface ButtonProps extends PropsWithChildren {
   to?: string
   href?: string
-  outline?: boolean
   fullWidth?: boolean
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
+  accent?: boolean
   onClick?: () => void
 }
 
@@ -18,19 +18,22 @@ const Button = ({
   href,
   onClick,
   type,
-  outline = false,
+  accent = false,
   fullWidth = false,
   disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
-    'border-2 border-accent hover:bg-accent-dark hover:border-accent-dark transition-colors text-white rounded-full px-4 font-medium py-[2px]',
-    { 'bg-neutral-750': outline },
-    { 'bg-accent': !outline },
+    "button-text-shadow border bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white rounded-none px-4 font-medium py-[2px] bg-[url('/images/static.webp')]",
+    // Width
+    { 'w-full': fullWidth },
+    // Borders
+    { 'border-white': !accent },
+    { 'border-accent': accent },
+    // Disabled Button
     {
       'bg-neutral-500 border-neutral-500 hover:border-neutral-500 hover:bg-neutral-500':
         disabled,
-    },
-    { 'w-full': fullWidth }
+    }
   )
 
   if (to) {

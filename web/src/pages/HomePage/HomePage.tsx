@@ -13,7 +13,6 @@ const HomePage = () => {
         </p>
         <div className="grid h-full max-h-[472px] w-full flex-1 grid-cols-1 gap-3">
           <Link
-            onClick={() => console.log('share')}
             className="relative block h-full w-full rounded bg-[url('/images/ShareImage.webp')] bg-cover text-lg text-white shadow hover:shadow-white"
             to={routes.share()}
           >
@@ -23,7 +22,6 @@ const HomePage = () => {
           </Link>
 
           <Link
-            onClick={() => console.log('find')}
             className="relative block h-full w-full rounded bg-[url('/images/FindImage.webp')] bg-cover text-lg text-white shadow hover:shadow-white"
             to={routes.find()}
           >
