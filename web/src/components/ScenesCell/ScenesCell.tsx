@@ -9,6 +9,7 @@ export const QUERY = gql`
       id
       title
       info
+      link
       coverImageId
       latitude
       longitude

@@ -16,6 +16,7 @@
     "@redwoodjs/forms": "6.1.0",
     "@redwoodjs/router": "6.1.0",
     "@redwoodjs/web": "6.1.0",
+    "boring-avatars": "^1.10.1",
     "clsx": "^2.0.0",
     "mapbox-gl": "^2.15.0",
     "prop-types": "15.8.1",

@@ -44,7 +44,10 @@ export const Failure = ({
 
 export const Success = ({
   scene,
-}: CellSuccessProps<FindRateSceneQuery, FindRateSceneQueryVariables>) => {
+  previous,
+}: CellSuccessProps<FindRateSceneQuery, FindRateSceneQueryVariables> & {
+  previous: () => void
+}) => {
   const [live, setLive] = useState<boolean | null>(null)
   // @TODO: use slider for these
   const [vibe, setVibe] = useState(5)
@@ -86,6 +89,7 @@ export const Success = ({
       <p>Is the show still going?</p>
       <Button onClick={() => setLive(true)}>Yes</Button>
       <Button onClick={() => setLive(false)}>No</Button>
+      <Button onClick={previous}>Back</Button>
       <Button onClick={handleRateScene} disabled={typeof live !== 'boolean'}>
         Rate
       </Button>
