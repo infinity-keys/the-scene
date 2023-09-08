@@ -16,9 +16,9 @@ const Routes = () => {
   return (
     <Router useAuth={useAuth}>
       <Set wrap={[MainLayout]}>
-        <Route path="/" page={HomePage} name="home" />
-        <Route path="/share" page={SharePage} name="share" />
-        <Route path="/find" page={FindPage} name="find" />
+        <Route path="/" page={HomePage} name="home" prerender />
+        <Route path="/share" page={SharePage} name="share" prerender />
+        <Route path="/find" page={FindPage} name="find" prerender />
         <Route notfound page={NotFoundPage} />
       </Set>
     </Router>
