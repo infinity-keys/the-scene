@@ -6,6 +6,7 @@ import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
 import { useAuth } from 'src/auth'
 import { Scene, User } from 'types/graphql'
+import { fourHoursLater } from 'src/lib/dates'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -16,6 +17,7 @@ enum ScreenProgress {
 type SceneInfo = Pick<
   Scene,
   | 'id'
+  | 'createdAt'
   | 'coverImageId'
   | 'latitude'
   | 'longitude'
@@ -81,7 +83,9 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
             <>
               <div className="flex items-baseline gap-2">
                 <p className="text-base font-bold">
-                  {scene.averages?.live ? 'Live Now!' : 'Show Ended'}
+                  {scene.averages?.live && !fourHoursLater(scene.createdAt)
+                    ? 'Live Now!'
+                    : 'Show Ended'}
                 </p>
                 <p className="text-xs">(0.2mi away)</p>
               </div>
