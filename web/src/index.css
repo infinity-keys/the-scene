@@ -27,6 +27,10 @@
   textarea {
     @apply resize-none;
   }
+
+  svg {
+    @apply w-full;
+  }
 }
 @layer components {
   .paper {
