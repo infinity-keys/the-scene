@@ -1,6 +1,6 @@
 import { useAuth } from 'src/auth'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useLocation } from '@redwoodjs/router'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Button from 'src/components/Button/Button'
@@ -9,14 +9,23 @@ import { Link, routes } from '@redwoodjs/router'
 import TheScene from 'src/icons/TheScene'
 import ShareTitle from 'src/icons/ShareTitle'
 import FindTitle from 'src/icons/FindTitle'
+import { useAddToHomescreenPrompt } from 'src/hooks/usePWAInstallPrompt'
 
 const Nav = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()
   const { pathname } = useLocation()
+  const [prompt, promptToInstall] = useAddToHomescreenPrompt()
+  const [isVisible, setVisibleState] = useState(false)
 
   const onSharePage = pathname.startsWith('/share')
   const onFindPage = pathname.startsWith('/find')
   const onHomePage = pathname === '/'
+
+  useEffect(() => {
+    if (prompt) {
+      setVisibleState(true)
+    }
+  }, [prompt])
 
   return (
     <header className="fixed left-0 top-0 z-20 min-h-[66px] w-full items-center bg-neutral-800 text-white">
@@ -91,6 +100,20 @@ const Nav = () => {
                       )}
                     </Menu.Item>
                   </div>
+                  {isVisible && (
+                    <div className="px-1 py-1 ">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                            onClick={promptToInstall}
+                          >
+                            Install
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  )}
                 </Menu.Items>
               </Transition>
             </Menu>
