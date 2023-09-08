@@ -15,6 +15,10 @@ model User {
 
   authId   String  @unique
   username String?
+  avatar   String?
+
+  ratings SceneRating[]
+  scenes  Scene[]
 }
 
 model Scene {
@@ -28,4 +32,26 @@ model Scene {
   coverImageId String
   info         String?
   link         String?
+
+  ratings SceneRating[]
+
+  user   User?   @relation(fields: [userId], references: [authId])
+  userId String?
+}
+
+model SceneRating {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  live    Boolean @default(true)
+  vibe    Int     @default(5)
+  crowded Int     @default(5)
+
+  scene   Scene?  @relation(fields: [sceneId], references: [id])
+  sceneId String?
+  user    User?   @relation(fields: [userId], references: [authId])
+  userId  String?
+
+  @@unique([userId, sceneId])
 }

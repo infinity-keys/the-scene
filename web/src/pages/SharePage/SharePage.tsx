@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation } from '@redwoodjs/web'
+import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast, LoaderIcon } from '@redwoodjs/web/dist/toast'
 import { navigate, routes } from '@redwoodjs/router'
 import {
@@ -16,6 +16,7 @@ import InfoInput from 'src/components/ShareScene/InfoInput/InfoInput'
 import TitleInput from 'src/components/ShareScene/TitleInput/TitleInput'
 import Wrapper from 'src/components/ShareScene/Wrapper/Wrapper'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
+import RefreshIcon from 'src/icons/RefreshIcon'
 
 const CREATE_SCENE_MUTATION = gql`
   mutation CreateSceneMutation($input: CreateSceneInput!) {
@@ -111,9 +112,9 @@ const SharePage = () => {
   if (!authLoading && !isAuthenticated) {
     return (
       <Wrapper>
-        <div className="flex flex-col items-center">
-          <p className="mb-2 text-xl">Please sign in to continue.</p>
-          <Button onClick={() => logIn()}>Sign In</Button>
+        <div className="mt-12 flex flex-col items-center">
+          <p className="mb-2 text-xl">Please log in to continue.</p>
+          <Button onClick={() => logIn()}>Log In</Button>
         </div>
       </Wrapper>
     )
@@ -122,7 +123,7 @@ const SharePage = () => {
   if (!isGeolocationEnabled) {
     return (
       <Wrapper>
-        <p className="text-xl font-bold">
+        <p className="mt-12 text-xl font-bold">
           Please enable location to share a scene.
         </p>
       </Wrapper>
@@ -131,6 +132,8 @@ const SharePage = () => {
 
   return (
     <Wrapper>
+      <MetaTags title="Share" description="Share a scene" />
+
       <div className="w-full max-w-[540px]">
         <div className="aspect-square">
           {imageSrc ? (
@@ -150,7 +153,14 @@ const SharePage = () => {
         <div className="p-4">
           {formProgress === FormProgress.IMAGE && imageSrc && (
             <FormButtonGroup
-              previousText="Retake"
+              previousText={
+                <span className="flex items-center justify-center">
+                  Retake
+                  <span className="ml-1 inline-block h-5 w-5">
+                    <RefreshIcon />
+                  </span>
+                </span>
+              }
               previous={() => setImageSrc('')}
               next={() => setFormProgress(FormProgress.TITLE)}
             />

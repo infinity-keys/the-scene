@@ -1,4 +1,5 @@
 import { MetaTags } from '@redwoodjs/web'
+import { Link, routes } from '@redwoodjs/router'
 import FindTitle from 'src/icons/FindTitle'
 import ShareTitle from 'src/icons/ShareTitle'
 
@@ -11,23 +12,23 @@ const HomePage = () => {
           Share & find live music nearby
         </p>
         <div className="grid h-full max-h-[472px] w-full flex-1 grid-cols-1 gap-3">
-          <button
-            onClick={() => console.log('share')}
-            className="relative block h-full w-full rounded bg-[url('/images/tajmia-loiacono-FVLeoPbW5PA-unsplash.jpg')] bg-cover text-lg text-white"
+          <Link
+            className="relative block h-full w-full rounded bg-[linear-gradient(to_bottom_right,rgba(0,0,0,0.3),rgba(0,0,0,0)),url('/images/ShareImage.webp')] bg-cover text-lg text-white shadow hover:shadow-white"
+            to={routes.share()}
           >
-            <span className="absolute left-8 top-8 block w-full max-w-[80px]">
+            <span className="absolute left-8 top-8 block w-full max-w-[80px] ">
               <ShareTitle />
             </span>
-          </button>
+          </Link>
 
-          <button
-            onClick={() => console.log('find')}
-            className="relative block h-full w-full rounded bg-[url('/images/tajmia-loiacono-FVLeoPbW5PA-unsplash.jpg')] bg-cover text-lg text-white"
+          <Link
+            className="relative block h-full w-full rounded bg-[linear-gradient(to_bottom_right,rgba(0,0,0,0),rgba(0,0,0,.3)),url('/images/FindImage.webp')] bg-cover text-lg text-white shadow hover:shadow-white"
+            to={routes.find()}
           >
             <span className="absolute bottom-8 right-8 block w-full max-w-[70px]">
               <FindTitle />
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </>

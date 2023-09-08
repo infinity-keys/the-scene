@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         accent: '#ED454D',
         'accent-dark': '#bb3b41',
+        tan: '#f3e8c6',
         neutral: {
           750: '#202020',
         },
@@ -17,11 +18,16 @@ module.exports = {
       },
       animation: {
         'fade-out': 'fade-out .6s 2s linear forwards',
+        'fade-in': 'fade-in .2s linear forwards',
       },
       keyframes: {
         'fade-out': {
           '0%': { opacity: '100%' },
           '100%': { opacity: '0%' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
         },
       },
     },

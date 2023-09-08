@@ -6,32 +6,44 @@ export const schema = gql`
     latitude: Float!
     longitude: Float!
     title: String!
+    coverImageId: String!
     info: String
     link: String
-    coverImageId: String!
+    ratings: [SceneRating]!
+    user: User
+    userId: String
+    averages: SceneAverages
+  }
+
+  type SceneAverages {
+    vibe: Boolean
+    crowded: Boolean
+    live: Boolean
   }
 
   type Query {
-    scenes: [Scene!]! @requireAuth
-    scene(id: String!): Scene @requireAuth
+    scenes: [Scene!]! @skipAuth
+    scene(id: String!): Scene @skipAuth
   }
 
   input CreateSceneInput {
     latitude: Float!
     longitude: Float!
     title: String!
+    imageData: String!
     info: String
     link: String
-    imageData: String!
+    userId: String
   }
 
   input UpdateSceneInput {
     latitude: Float
     longitude: Float
     title: String
+    imageData: String!
     info: String
     link: String
-    imageData: String
+    userId: String
   }
 
   type Mutation {

@@ -5,6 +5,9 @@ export const schema = gql`
     updatedAt: DateTime!
     authId: String!
     username: String
+    avatar: String
+    ratings: [SceneRating]!
+    scenes: [Scene]!
   }
 
   type Query {
@@ -15,11 +18,13 @@ export const schema = gql`
   input CreateUserInput {
     authId: String!
     username: String
+    avatar: String
   }
 
   input UpdateUserInput {
     authId: String
     username: String
+    avatar: String
   }
 
   input UpsertUserInput {

@@ -1,20 +1,16 @@
 # README - the-scene
 
-This Readme contains the features and functionality of the-scene PWA built for the RedwoodJS Build Competition August-Sept 10, 2023
+## This README contains the features, functionality, and background of The Scene application built by Infinity Keys for the RedwoodJS Build Competition August-Sept 10, 2023.
 
----
-
-## the-scene
-
-the-scene is an ephemeral crowdsourced rock show app. Plenty of events apps let you plan for weeks or months in advance, but the-scene is for live music lovers, scene kids, young couples out for something spontaneous, bored teenagers with a car and a desperate need to know what's going on RIGHT NOW.
+The Scene is an ephemeral crowdsourced rock show app. Plenty of events apps let you plan for weeks or months in advance, but the-scene is for live music lovers, scene kids, young couples out for something spontaneous, bored teenagers with a car and a desperate need to know what's going on RIGHT NOW.
 
 Ephemeral: Scenes (events) are posted and voted, and they dissapear in 4 hours. Want to plan your event in advance? Use another app! Stumble across a killer basement show? Make a scene!
 
 Crowdsourced: Let people have fun sharing scene vibes instead of relying on faceless tech giant aggregators to bloat the app. You're already there, what's the-scene?
 
-### the-scene - Features
+## Features
 
-#### Share the Scene
+### Share a Scene
 
 As a user, I want to post a scene that shows an event including the location, whether it is well attended, and the general vibes.
 
@@ -24,9 +20,7 @@ As a user, I want credit for being an information source about cool events happe
 
 As a user, I want to post media to the scene to as proof of vibes.
 
-    -
-
-#### Rate the Scene
+### Find a Scene
 
 As a user, I want to see scenes around me happening now.
 
@@ -38,25 +32,25 @@ As a user, I want credit for being an information source about cool events happe
 
 As a user, I want to post media to the scene as proof of vibes.
 
-### Feature List
+## Feature List
 
-#### PWA
+### PWA
 
-- Hack the planet!!!
 - The app will be a progressive web app
+- Hack the planet!!!
 
-#### Profile Features
+### Profile Features
 
-- Clerk 0auth (google, fb, discord, github, mm)
+- Clerk 0auth (google, discord, github)
 - Profile Pic
 - Username
+
+#### Future Profile Features
+
+- Connect to socials
 - Your Scenes
 - Your Ratings
 - Your Uploads
-
-##### Future Profile Features
-
-- Connect to socials
 - Your Points
 - Zines
   - Attendees can pool points together to redeem for all attendees to recieve Zine memorabilia from the show mailed to their home address
@@ -65,15 +59,15 @@ As a user, I want to post media to the scene as proof of vibes.
   - If you vote on a pin you get 25 points
 - Profile points leaderboard
 
-#### Map
+### Map
 
 - Built-in javascript for user location
-- Address/location search & autocomplete location
+- Address/location search & Directions
 - Existing Scenes appear on the map
 - Users can click into Scenes to see Event information & votes etc
 - Scroll map, expand and contract to refine Scene results
 
-##### Future Map features
+#### Future Map features
 
 - Add bonus items? (like Waze candies) Appear near pins. 3 different "items".
 - Past Scenes appear
@@ -82,7 +76,7 @@ As a user, I want to post media to the scene as proof of vibes.
   - (no more than 2 weeks in advance)
 - Ability to turn on/off past/future Scenes
 
-#### Share The Scene (placing a new event)
+### Share a Scene - Placing a new event
 
 - Scenes can only be placed where the user is physically geolocated
 - User provides information about the Scene at creation
@@ -94,15 +88,15 @@ As a user, I want to post media to the scene as proof of vibes.
   - General rating
     - Emoji slider
 
-#### Rate The Scene - Corroborating existing scene information
+### Find a Scene + Rate a Scene
 
 - Is the event still going?
 - How many people are there?
   - Emoji slider
 - General rating
   -Emoji slider
-- Image Uploads
 - Text content (optional review)
+- Image uploads (next version)
 
 ---
 
@@ -116,9 +110,15 @@ The team has three objectives for this build:
 
 ### Crowsourced
 
-Crowd or community-sourced information is an opportunity for emergent, unplanned experiences. In the current media ecosystem viral emergence is the adrenaline drug that everyone is looking for. Emergent, novel experiences appear when you give people the right tools int he right situations. They need to be easy, provoke play, and serve a specific audience's needs.
+<<<<<<< HEAD
 
-Furthermore, when the call for Build came out specifically stating that there doesn't have to have a clear business case, it prompted us to ask what fun audience needs are served that do better WITHOUT monetization and attentional intrusion. The local, underground, youth, and live music scenes jumped to mind. These scenes typically have vibrant communities that thrive by DIY mentality and word of mouth, bypassing the rails of megatech.
+# Crowd or community-sourced information is an opportunity for emergent, unplanned experiences. In the current media ecosystem viral emergence is the adrenaline drug that everyone is looking for. Emergent, novel experiences appear when you give people the right tools int he right situations. They need to be easy, provoke play, and serve a specific audience's needs.
+
+Crowd or community-sourced information is an opportunity for emergent, unplanned experiences. In the current media ecosystem viral emergence is the adrenaline drug that everyone is looking for. Emergent, novel experiences appear when people play with media tools together. They need to be easy, provoke play, and serve a specific audience's needs (not always the intended needs haha!).
+
+> > > > > > > main
+
+When the call for RedwoodBuild came out specifically stating that there doesn't have to have a clear business case, it prompted us to ask what fun audience needs are served that do better WITHOUT monetization and attentional intrusion. The local, underground, youth, and live music scenes jumped to mind. These scenes typically have vibrant communities that thrive by DIY mentality and word of mouth, bypassing the rails of megatech.
 
 It felt like an opportunity to create a fun, connective social experience based on participant input, not by promoted posts and SEO hacking. Instead, the data that powers events in the app come from the participants and their real-time ephemeral experiences.
 
@@ -132,11 +132,11 @@ We also want to explore what progressive web app (PWA) functionality looks like 
 
 ### Fun to Build, Fun to Use
 
-It is critical that the app itself is fun to use. Not just the vibes and the narrative, but also the design and responsiveness. The actions the user takes need to be fun on their own, which is why we've stripped out many common event planning features - they're boring, this is more like a dating app.
+Creating, sharing, finding, and rating events should be a delightful experience, which is why we've stripped out many common event planning features - they're boring, The Scene is more like a dating app. We anticipate that responsiveness and simple tasks will generate more delight by asking less of the user. We tried to provide delight by adding sliders, funky design, customization, and simple flows through the basic app features. People attending shows don't need to be on The Scene app the whole time, they hsould be able to pop on, share, and head back into the PIT!
 
-Responsiveness is also key as people attending an event need to be able to indicate a few important details quickly, then get back to the live vibes. Also, real-time ephemeral events change status quickly, so collecting, computing, and returning aggregate values is critical for this kind of experience to feel organic and live.
+Responsiveness is also a key for fun as people attending an event need to be able to indicate a few important details quickly, then get back to the live vibes. Also, real-time ephemeral events change status quickly, so collecting, computing, and returning aggregate values is critical for this kind of experience to feel organic and live.
 
-Also we're music fans and we generally have a punk rock, anti-establistment vibe. We love local music, hardcore, punk, rap, and generally giving authority the finger. So let's build an app that lets other people do that stuff too!
+Also we're music fans and we generally have a punk rock, anti-establistment vibe. We love local music, metal, punk, rap, and generally giving authority the finger. So let's build an app that lets other people do that stuff too!
 
 ## Permissive License
 
