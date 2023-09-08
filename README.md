@@ -1,17 +1,15 @@
 # README - the-scene
 
-This Readme contains the features and functionality of the-scene PWA built for the RedwoodJS Build Competition August-Sept 10, 2023
-
+This Readme contains the features, functionality, and background of the-scene application built by Infinity Keys for the RedwoodJS Build Competition August-Sept 10, 2023.
 ---
-## the-scene
 the-scene is an ephemeral crowdsourced rock show app. Plenty of events apps let you plan for weeks or months in advance, but the-scene is for live music lovers, scene kids, young couples out for something spontaneous, bored teenagers with a car and a desperate need to know what's going on RIGHT NOW.
 
 Ephemeral: Scenes (events) are posted and voted, and they dissapear in 4 hours. Want to plan your event in advance? Use another app! Stumble across a killer basement show? Make a scene!
 
 Crowdsourced: Let people have fun sharing scene vibes instead of relying on faceless tech giant aggregators to bloat the app. You're already there, what's the-scene?
 
-### the-scene - Features
-#### Share the Scene
+## Features
+### Share the Scene
 As a user, I want to post a scene that shows an event including the location, whether it is well attended, and the general vibes.
 
 As a user, I want to broadcast this scene to others to provide information about whether they should attend or not.
@@ -20,9 +18,7 @@ As a user, I want credit for being an information source about cool events happe
 
 As a user, I want to post media to the scene to as proof of vibes.
 
-
-	-
-#### Rate the Scene
+### Find the Scene
 As a user, I want to see scenes around me happening now.
 
 As a user, I want to see information about those scenes such as how well-attended is it, what are the vibes, etc.
@@ -33,13 +29,13 @@ As a user, I want credit for being an information source about cool events happe
 
 As a user, I want to post media to the scene as proof of vibes.
 
-### Feature List
+## Feature List
 
-#### PWA
+### PWA
 - Hack the planet!!!
 - The app will be a progressive web app
 
-#### Profile Features
+### Profile Features
 - Clerk 0auth (google, fb, discord, github, mm)
 - Profile Pic
 - Username
@@ -47,7 +43,7 @@ As a user, I want to post media to the scene as proof of vibes.
 - Your Ratings
 - Your Uploads
 
-##### Future Profile Features
+#### Future Profile Features
  - Connect to socials
  - Your Points
  - Zines
@@ -57,14 +53,14 @@ As a user, I want to post media to the scene as proof of vibes.
 	- If you vote on a pin you get 25 points
 - Profile points leaderboard
 
-#### Map
+### Map
 - Built-in javascript for user location
 - Address/location search & autocomplete location
 - Existing Scenes appear on the map
 - Users can click into Scenes to see Event information & votes etc
 - Scroll map, expand and contract to refine Scene results
 
-##### Future Map features
+#### Future Map features
 - Add bonus items? (like Waze candies) Appear near pins. 3 different "items".
 - Past Scenes appear
 	- (last longer if more people attended)
@@ -72,7 +68,7 @@ As a user, I want to post media to the scene as proof of vibes.
 	- (no more than 2 weeks in advance)
 - Ability to turn on/off past/future Scenes
 
-#### Share The Scene (placing a new event)
+### Share The Scene (placing a new event)
 - Scenes can only be placed where the user is physically geolocated
 - User provides information about the Scene at creation
 	- Title
@@ -83,7 +79,7 @@ As a user, I want to post media to the scene as proof of vibes.
 	- General rating
 		- Emoji slider
 
-#### Rate The Scene - Corroborating existing scene information
+### Find The Scene - Corroborating existing scene information
 - Is the event still going?
 - How many people are there?
 	- Emoji slider
