@@ -6,6 +6,7 @@ export const QUERY = gql`
   query FindSceneQuery($id: String!) {
     scene(id: $id) {
       id
+      createdAt
       title
       info
       link
