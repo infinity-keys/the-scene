@@ -4,6 +4,7 @@ import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
+import { useAuth } from 'src/auth'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -12,6 +13,7 @@ enum ScreenProgress {
 }
 
 const InfoCard = ({ scene }: { scene: MapScene }) => {
+  const { isAuthenticated, logIn } = useAuth()
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW
   )
@@ -77,12 +79,20 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
                 >
                   + INFO
                 </Button>
-                <Button
-                  fullWidth
-                  onClick={() => setScreenProgress(ScreenProgress.RATE)}
-                >
-                  Rate This Scene
-                </Button>
+
+                {isAuthenticated ? (
+                  <Button
+                    fullWidth
+                    accent
+                    onClick={() => setScreenProgress(ScreenProgress.RATE)}
+                  >
+                    Rate This Scene
+                  </Button>
+                ) : (
+                  <Button accent fullWidth onClick={() => logIn()}>
+                    Log in to Rate
+                  </Button>
+                )}
               </div>
             </>
           )}

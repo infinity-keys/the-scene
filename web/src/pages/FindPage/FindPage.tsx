@@ -6,6 +6,7 @@ import { Scene, User } from 'types/graphql'
 import ScenesCell from 'src/components/ScenesCell'
 import InfoCard from 'src/components/InfoCard/InfoCard'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { MetaTags } from '@redwoodjs/web'
 
 export type MapScene = Pick<
   Scene,
@@ -62,6 +63,8 @@ const FindPage = () => {
 
   return (
     <div className="relative">
+      <MetaTags title="Find" description="Find a scene" />
+
       <Map
         {...viewState}
         reuseMaps

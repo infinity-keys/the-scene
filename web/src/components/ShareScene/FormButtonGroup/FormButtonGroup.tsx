@@ -17,11 +17,11 @@ const FormButtonGroup = ({
   nextDisabled?: boolean
 }) => {
   return (
-    <div className="flex justify-center gap-4">
+    <div className="mx-auto flex max-w-xs justify-center gap-4">
       <Button onClick={previous} disabled={previousDisabled}>
         {previousText}
       </Button>
-      <Button onClick={next} disabled={nextDisabled}>
+      <Button accent onClick={next} disabled={nextDisabled} fullWidth>
         {nextText}
       </Button>
     </div>
