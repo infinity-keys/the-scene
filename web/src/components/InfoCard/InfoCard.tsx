@@ -15,9 +15,8 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW
   )
-  // @TODO: use real data
-  const crowded = false
-  const great = false
+
+  const { crowded, vibe } = scene.averages || {}
 
   return (
     <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
@@ -37,22 +36,27 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
           </div>
 
           <div>
-            <div className="mb-4 flex items-center bg-black px-3 text-right">
-              <p className="rotate-[1.2deg] text-sm font-bold uppercase">
-                {crowded ? 'Packed place' : 'Kinda Empty'}
-              </p>
-              <p className="-translate-y-2 translate-x-4 text-2xl">
-                {crowded ? '🥳' : '🫥'}
-              </p>
-            </div>
-            <div className="flex items-center bg-black px-3 text-right">
-              <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
-                {great ? 'Great show' : 'So so show'}
-              </p>
-              <p className="-translate-y-2 translate-x-4 text-2xl">
-                {great ? '🤩' : '😴'}
-              </p>
-            </div>
+            {typeof crowded === 'boolean' && (
+              <div className="mb-4 flex items-center bg-black px-3 text-right">
+                <p className="rotate-[1.2deg] text-sm font-bold uppercase">
+                  {crowded ? 'Packed place' : 'Kinda Empty'}
+                </p>
+                <p className="-translate-y-2 translate-x-4 text-2xl">
+                  {crowded ? '🥳' : '🫥'}
+                </p>
+              </div>
+            )}
+
+            {typeof vibe === 'boolean' && (
+              <div className="flex items-center bg-black px-3 text-right">
+                <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
+                  {vibe ? 'Great show' : 'So so show'}
+                </p>
+                <p className="-translate-y-2 translate-x-4 text-2xl">
+                  {vibe ? '🤩' : '😴'}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -60,7 +64,9 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
           {screenProgress === ScreenProgress.OVERVIEW && (
             <>
               <div className="flex items-baseline gap-2">
-                <p className="text-base font-bold">Live Now!</p>
+                <p className="text-base font-bold">
+                  {scene.averages?.live ? 'Live Now!' : 'Show Ended'}
+                </p>
                 <p className="text-xs">(0.2mi away)</p>
               </div>
 

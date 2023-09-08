@@ -71,4 +71,34 @@ export const Scene: SceneRelationResolvers = {
   user: (_obj, { root }) => {
     return db.scene.findUnique({ where: { id: root?.id } }).user()
   },
+  averages: async (_obj, { root }) => {
+    const {
+      _avg: { vibe, crowded },
+      _count,
+    } = await db.sceneRating.aggregate({
+      where: {
+        sceneId: root?.id,
+      },
+      _avg: {
+        vibe: true,
+        crowded: true,
+      },
+      _count: {
+        _all: true,
+      },
+    })
+
+    const liveCount = await db.sceneRating.count({
+      where: {
+        sceneId: root?.id,
+        live: { equals: true },
+      },
+    })
+
+    return {
+      vibe: typeof vibe === 'number' ? vibe >= 2.5 : null,
+      crowded: typeof crowded === 'number' ? crowded >= 2.5 : null,
+      live: liveCount / _count._all >= 0.5,
+    }
+  },
 }
