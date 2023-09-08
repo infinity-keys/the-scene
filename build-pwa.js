@@ -1,5 +1,5 @@
 const { generateSW } = require('workbox-build')
-
+console.log('pwa')
 generateSW({
   // Avoid cache busting for assets that already include a hash in their filename
   dontCacheBustURLsMatching: /\.\w{8}\./,
