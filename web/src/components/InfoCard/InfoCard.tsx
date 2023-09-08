@@ -5,6 +5,7 @@ import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
 import { useAuth } from 'src/auth'
+import { Scene, User } from 'types/graphql'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -12,7 +13,21 @@ enum ScreenProgress {
   DETAILS,
 }
 
-const InfoCard = ({ scene }: { scene: MapScene }) => {
+type SceneInfo = Pick<
+  Scene,
+  | 'id'
+  | 'coverImageId'
+  | 'latitude'
+  | 'longitude'
+  | 'title'
+  | 'link'
+  | 'info'
+  | 'averages'
+> & {
+  user?: Pick<User, 'username' | 'avatar'> | null
+}
+
+const InfoCard = ({ scene }: { scene: SceneInfo }) => {
   const { isAuthenticated, logIn } = useAuth()
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW

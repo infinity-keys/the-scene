@@ -2,28 +2,16 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
-import { Scene, User } from 'types/graphql'
+import { Scene } from 'types/graphql'
 import ScenesCell from 'src/components/ScenesCell'
-import InfoCard from 'src/components/InfoCard/InfoCard'
+import SceneCell from 'src/components/SceneCell'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { MetaTags } from '@redwoodjs/web'
 
-export type MapScene = Pick<
-  Scene,
-  | 'id'
-  | 'coverImageId'
-  | 'latitude'
-  | 'longitude'
-  | 'title'
-  | 'link'
-  | 'info'
-  | 'averages'
-> & {
-  user?: Pick<User, 'username' | 'avatar'> | null
-}
+export type MapScene = Pick<Scene, 'id' | 'latitude' | 'longitude'>
 
 const FindPage = () => {
-  const [selectedScene, setSelectedScene] = useState<MapScene | null>(null)
+  const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
@@ -38,9 +26,9 @@ const FindPage = () => {
         longitude: scene.longitude,
         zoom: 15,
       })
-      setSelectedScene(scene)
+      setSelectedSceneId(scene.id)
     },
-    [setViewState, setSelectedScene]
+    [setViewState, setSelectedSceneId]
   )
 
   // The user's current location
@@ -70,7 +58,7 @@ const FindPage = () => {
         reuseMaps
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
-        onDrag={() => setSelectedScene(null)}
+        onDrag={() => setSelectedSceneId(null)}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
@@ -88,9 +76,9 @@ const FindPage = () => {
         <ScenesCell handleMarkerFocus={handleMarkerFocus} />
       </Map>
 
-      {selectedScene && (
+      {selectedSceneId && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
-          <InfoCard scene={selectedScene} />
+          <SceneCell id={selectedSceneId} />
         </div>
       )}
     </div>

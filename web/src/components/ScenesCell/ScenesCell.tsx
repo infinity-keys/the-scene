@@ -7,21 +7,8 @@ export const QUERY = gql`
   query ScenesQuery {
     scenes {
       id
-      title
-      info
-      link
-      coverImageId
       latitude
       longitude
-      user {
-        avatar
-        username
-      }
-      averages {
-        vibe
-        crowded
-        live
-      }
     }
   }
 `

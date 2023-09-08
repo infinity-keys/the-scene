@@ -47,7 +47,7 @@ const RateScene = ({
       console.error(error)
       toast.error('There was a problem rating this scene. Please try again.')
     },
-    refetchQueries: ['ScenesQuery'],
+    refetchQueries: ['ScenesQuery', 'FindSceneQuery'],
   })
 
   const handleRateScene = () => {
