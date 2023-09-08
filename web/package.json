@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^4",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@redwoodjs/auth-clerk-web": "6.1.0",
     "@redwoodjs/forms": "6.1.0",
     "@redwoodjs/router": "6.1.0",
