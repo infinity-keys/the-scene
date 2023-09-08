@@ -87,7 +87,6 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
                     ? 'Live Now!'
                     : 'Show Ended'}
                 </p>
-                <p className="text-xs">(0.2mi away)</p>
               </div>
 
               <div className="flex gap-3 pt-4">
