@@ -148,7 +148,7 @@ To run this locally you will need accounts at [Map Box](https://www.mapbox.com/)
 
 1. Copy the contents of `.env.defaults` to `.env` and update the values with your API keys from the accounts above.
 
-2. Create a webhook in your Clerk project pointing to your site's API url `/user`. You can install [ngrok](https://ngrok.com/) for locally testing.
+2. Create a webhook in your Clerk project pointing to your site's API url `/user`. You can install [ngrok](https://ngrok.com/) for local testing.
 
 3. `docker-compose up -d`
 
