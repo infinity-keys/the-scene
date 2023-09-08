@@ -100,6 +100,7 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
             <RateScene
               sceneId={scene.id}
               previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
+              onRateSuccess={() => setScreenProgress(ScreenProgress.OVERVIEW)}
             />
           )}
 
