@@ -4,6 +4,7 @@ import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
+import { useAuth } from 'src/auth'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -12,6 +13,7 @@ enum ScreenProgress {
 }
 
 const InfoCard = ({ scene }: { scene: MapScene }) => {
+  const { isAuthenticated, logIn } = useAuth()
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW
   )
@@ -27,8 +29,7 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
         <div
           className="flex min-h-[250px] flex-col items-end justify-between gap-2 bg-cover bg-center p-3 text-xs font-normal"
           style={{
-            backgroundImage:
-              'linear-gradient(to bottom, rgba(0, 0, 0, .0), rgba(0, 0, 0, .80)), url(https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80)',
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .0), rgba(0, 0, 0, .80)), url(https://res.cloudinary.com/infinity-keys/image/upload/c_fill,h_500,w_500/${scene.coverImageId})`,
           }}
         >
           <div className="px-4 text-center md:px-8">
@@ -77,12 +78,20 @@ const InfoCard = ({ scene }: { scene: MapScene }) => {
                 >
                   + INFO
                 </Button>
-                <Button
-                  fullWidth
-                  onClick={() => setScreenProgress(ScreenProgress.RATE)}
-                >
-                  Rate This Scene
-                </Button>
+
+                {isAuthenticated ? (
+                  <Button
+                    fullWidth
+                    accent
+                    onClick={() => setScreenProgress(ScreenProgress.RATE)}
+                  >
+                    Rate This Scene
+                  </Button>
+                ) : (
+                  <Button accent fullWidth onClick={() => logIn()}>
+                    Log in to Rate
+                  </Button>
+                )}
               </div>
             </>
           )}

@@ -1,6 +1,8 @@
 import { MapScene } from 'src/pages/FindPage/FindPage'
 import Button from 'src/components/Button/Button'
 import Avatar from 'boring-avatars'
+import MusicIcon from 'src/icons/MusicIcon'
+import NavigationIcon from 'src/icons/NavigationIcon'
 
 const SceneDetails = ({
   scene,
@@ -15,15 +17,26 @@ const SceneDetails = ({
         <div className="basis-1/2">
           <Button
             fullWidth
+            accent
             href={`http://www.google.com/maps/place/${scene.latitude},${scene.longitude}`}
           >
-            Directions
+            <span className="flex items-center justify-center">
+              <span className="mr-1 inline-block h-5 w-5">
+                <NavigationIcon />
+              </span>
+              Directions
+            </span>
           </Button>
         </div>
         {scene.link && (
           <div className="basis-1/2">
             <Button fullWidth href={scene.link}>
-              Band Link
+              <span className="flex items-center justify-center">
+                <span className="mr-1 inline-block h-5 w-5">
+                  <MusicIcon />
+                </span>
+                Band Link
+              </span>
             </Button>
           </div>
         )}
