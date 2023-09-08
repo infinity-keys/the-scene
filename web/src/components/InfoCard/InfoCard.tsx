@@ -35,7 +35,6 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
     ScreenProgress.OVERVIEW
   )
 
-  console.log('scene.createdAt: ', fourHoursLater(scene.createdAt))
   const { crowded, vibe } = scene.averages || {}
 
   return (
