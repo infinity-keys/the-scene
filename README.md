@@ -131,7 +131,7 @@ MIT License
     The above copyright notice and this permission notice shall be included in all
     copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS ORP
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -141,3 +141,15 @@ MIT License
 
 
 ## Additional Resources
+
+## Running Locally
+
+To run this locally you will need accounts at [Map Box](https://www.mapbox.com/), [Clerk](https://clerk.com/), and [Cloudinary](https://cloudinary.com/), and Docker installed.
+
+1. Copy the contents of `.env.defaults` to `.env` and update the values with your API keys from the accounts above.
+
+2. Create a webhook in your Clerk project pointing to your site's API url `/user`. You can install [ngrok](https://ngrok.com/) for locally testing.
+
+3. `docker-compose up -d`
+
+4. `yarn rw dev`
