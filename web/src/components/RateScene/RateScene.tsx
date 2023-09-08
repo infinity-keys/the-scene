@@ -23,12 +23,13 @@ const RATE_SCENE_MUTATION = gql`
 const RateScene = ({
   sceneId,
   previous,
+  onRateSuccess,
 }: {
   sceneId: string
   previous: () => void
+  onRateSuccess: () => void
 }) => {
   const [live, setLive] = useState<boolean | null>(null)
-  // @TODO: use slider for these
   const [vibe, setVibe] = useState({ x: 5, y: 0 })
   const [crowded, setCrowded] = useState({ x: 5, y: 0 })
 
@@ -37,13 +38,16 @@ const RateScene = ({
     RateSceneMutationVariables
   >(RATE_SCENE_MUTATION, {
     onCompleted(data) {
-      // @TODO: close rate screen modal
-      console.log({ data })
+      if (data.upsertSceneRating.id) {
+        onRateSuccess()
+        toast('Thank you for your rating!')
+      }
     },
     onError(error) {
       console.error(error)
       toast.error('There was a problem rating this scene. Please try again.')
     },
+    refetchQueries: ['ScenesQuery', 'FindSceneQuery'],
   })
 
   const handleRateScene = () => {
