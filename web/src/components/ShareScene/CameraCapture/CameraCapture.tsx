@@ -43,12 +43,11 @@ const CameraCapture = ({
       </div>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-        <button onClick={capture}>
+        <button onClick={capture} className="h-20 w-20">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={72}
-            height={72}
             fill="none"
+            viewBox="0 0 72 72"
           >
             <circle
               cx={36}

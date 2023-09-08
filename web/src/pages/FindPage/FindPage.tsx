@@ -5,8 +5,9 @@ import { useGeolocated } from 'react-geolocated'
 import { Scene } from 'types/graphql'
 import ScenesCell from 'src/components/ScenesCell'
 import SceneCell from 'src/components/SceneCell'
-import 'mapbox-gl/dist/mapbox-gl.css'
 import { MetaTags } from '@redwoodjs/web'
+
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 export type MapScene = Pick<Scene, 'id' | 'latitude' | 'longitude'>
 

@@ -18,7 +18,7 @@ const Routes = () => {
       <Set wrap={[MainLayout]}>
         <Route path="/" page={HomePage} name="home" prerender />
         <Route path="/share" page={SharePage} name="share" prerender />
-        <Route path="/find" page={FindPage} name="find" prerender />
+        <Route path="/find" page={FindPage} name="find" />
         <Route notfound page={NotFoundPage} />
       </Set>
     </Router>
