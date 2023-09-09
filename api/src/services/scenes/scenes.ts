@@ -100,6 +100,7 @@ export const Scene: SceneRelationResolvers = {
       crowded: typeof crowded === 'number' ? crowded >= 2.5 : null,
       // if there are no ratings, set show to live and handle the time checks in the front end
       live: _count._all === 0 ? true : liveCount / _count._all >= 0.5,
+      totalRatings: _count._all,
     }
   },
 }
