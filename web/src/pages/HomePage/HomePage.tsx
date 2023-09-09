@@ -8,9 +8,7 @@ const HomePage = () => {
     <>
       <MetaTags title="Home" description="Home Page" />
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 p-4">
-        <p className="text-xl font-medium text-white">
-          Share & find live music nearby
-        </p>
+        <p className="text-center text-2xl font-medium text-white">what's up</p>
         <div className="grid h-full max-h-[472px] w-full flex-1 grid-cols-1 gap-3">
           <Link
             className="relative block h-full w-full rounded bg-[linear-gradient(to_bottom_right,rgba(0,0,0,0.3),rgba(0,0,0,0)),url('/images/ShareImage.webp')] bg-cover text-lg text-white shadow hover:shadow-white"
