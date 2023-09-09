@@ -19,6 +19,7 @@ export const schema = gql`
     vibe: Boolean
     crowded: Boolean
     live: Boolean
+    totalRatings: Int
   }
 
   type Query {

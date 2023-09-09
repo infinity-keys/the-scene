@@ -35,7 +35,7 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
     ScreenProgress.OVERVIEW
   )
 
-  const { crowded, vibe } = scene.averages || {}
+  const { crowded, vibe, totalRatings } = scene.averages || {}
 
   return (
     <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
@@ -87,6 +87,12 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
                     ? 'Live Now!'
                     : 'Show Ended'}
                 </p>
+                {totalRatings && totalRatings > 0 ? (
+                  <p className="text-sm">
+                    {scene.averages?.totalRatings}{' '}
+                    {totalRatings > 1 ? 'ratings' : 'rating'}
+                  </p>
+                ) : null}
               </div>
 
               <div className="flex gap-3 pt-4">

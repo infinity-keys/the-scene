@@ -21,6 +21,7 @@ export const QUERY = gql`
         vibe
         crowded
         live
+        totalRatings
       }
     }
   }
