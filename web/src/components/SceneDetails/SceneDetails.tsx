@@ -24,7 +24,7 @@ const SceneDetails = ({
               <span className="mr-1 inline-block h-5 w-5">
                 <NavigationIcon />
               </span>
-              Directions
+              Let's Go!
             </span>
           </Button>
         </div>
@@ -35,7 +35,7 @@ const SceneDetails = ({
                 <span className="mr-1 inline-block h-5 w-5">
                   <MusicIcon />
                 </span>
-                Band Link
+                More Info
               </span>
             </Button>
           </div>
