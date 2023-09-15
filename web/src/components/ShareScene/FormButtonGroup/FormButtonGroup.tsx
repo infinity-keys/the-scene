@@ -5,7 +5,7 @@ const FormButtonGroup = ({
   previous,
   next,
   previousText = 'Back',
-  nextText = 'Continue',
+  nextText = 'Continue 🤩',
   previousDisabled = false,
   nextDisabled = false,
 }: {
