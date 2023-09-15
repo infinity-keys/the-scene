@@ -73,14 +73,14 @@ const RateScene = ({
         <p>Is the show still going?</p>
         <div className="mt-4 flex gap-2">
           <Button fullWidth onClick={() => setLive(true)} selected={!!live}>
-            Yes
+            Yeah!
           </Button>
           <Button
             fullWidth
             onClick={() => setLive(false)}
             selected={live === false}
           >
-            No
+            It's Over!
           </Button>
         </div>
       </div>
