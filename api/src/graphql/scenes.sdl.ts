@@ -37,6 +37,16 @@ export const schema = gql`
     userId: String
   }
 
+  input CreateSeedSceneInput {
+    latitude: Float!
+    longitude: Float!
+    title: String!
+    coverImageId: String!
+    info: String
+    link: String
+    userId: String
+  }
+
   input UpdateSceneInput {
     latitude: Float
     longitude: Float
