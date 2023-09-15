@@ -4,7 +4,7 @@ This README contains the features, functionality, and background of The Scene ap
 ---
 The Scene is an ephemeral crowdsourced rock show app. Plenty of events apps let you plan for weeks or months in advance, but the-scene is for live music lovers, scene kids, young couples out for something spontaneous, bored teenagers with a car and a desperate need to know what's going on RIGHT NOW.
 
-Ephemeral: Scenes (events) are posted and voted, and they dissapear in 4 hours. Want to plan your event in advance? Use another app! Stumble across a killer basement show? Make a scene!
+Ephemeral: Scenes (events) are posted and voted, and they disappear in 4 hours. Want to plan your event in advance? Use another app! Stumble across a killer basement show? Make a scene!
 
 Crowdsourced: Let people have fun sharing scene vibes instead of relying on faceless tech giant aggregators to bloat the app. You're already there, what's the-scene?
 
@@ -35,7 +35,7 @@ As a user, I want to post media to the scene as proof of vibes.
 - Hack the planet!!!
 
 ### Profile Features
-- Clerk 0auth (google, discord, github)
+- Clerk OAuth (google, discord, github)
 - Profile Pic
 - Username
 
@@ -47,7 +47,7 @@ As a user, I want to post media to the scene as proof of vibes.
  - Your Uploads
  - Your Points
  - Zines
-	- Attendees can pool points together to redeem for all attendees to recieve Zine memorabilia from the show mailed to their home address
+	- Attendees can pool points together to redeem for all attendees to receive Zine memorabilia from the show mailed to their home address
 - Point system
 	- If you make a pin you get 100 points
 	- If you vote on a pin you get 25 points
@@ -95,7 +95,7 @@ The team has three objectives for this build:
 2. New Redwood integrations & Testing a PWA
 3. Create an experience that's fun to use
 
-### Crowsourced
+### Crowdsourced
 Crowd or community-sourced information is an opportunity for emergent, unplanned experiences. In the current media ecosystem viral emergence is the adrenaline drug that everyone is looking for. Emergent, novel experiences appear when people play with media tools together. They need to be easy, provoke play, and serve a specific audience's needs (not always the intended needs haha!).
 
 When the call for RedwoodBuild came out specifically stating that there doesn't have to have a clear business case, it prompted us to ask what fun audience needs are served that do better WITHOUT monetization and attentional intrusion. The local, underground, youth, and live music scenes jumped to mind. These scenes typically have vibrant communities that thrive by DIY mentality and word of mouth, bypassing the rails of megatech.
@@ -110,11 +110,11 @@ Example, authorization integration to Redwood is top notch, and we're leaning on
 We also want to explore what progressive web app (PWA) functionality looks like on Redwood. This gives us a chance to explore what it takes to setup a PWA on Redwood as we move into future phases of Infinity Keys.
 
 ### Fun to Build, Fun to Use
-Creating, sharing, finding, and rating events should be a delightful experience, which is why we've stripped out many common event planning features - they're boring, The Scene is more like a dating app. We anticipate that responsiveness and simple tasks will generate more delight by asking less of the user. We tried to provide delight by adding sliders, funky design, customization, and simple flows through the basic app features. People attending shows don't need to be on The Scene app the whole time, they hsould be able to pop on, share, and head back into the PIT!
+Creating, sharing, finding, and rating events should be a delightful experience, which is why we've stripped out many common event planning features - they're boring, The Scene is more like a dating app. We anticipate that responsiveness and simple tasks will generate more delight by asking less of the user. We tried to provide delight by adding sliders, funky design, customization, and simple flows through the basic app features. People attending shows don't need to be on The Scene app the whole time, they should be able to pop on, share, and head back into the PIT!
 
 Responsiveness is also a key for fun as people attending an event need to be able to indicate a few important details quickly, then get back to the live vibes. Also, real-time ephemeral events change status quickly, so collecting, computing, and returning aggregate values is critical for this kind of experience to feel organic and live.
 
-Also we're music fans and we generally have a punk rock, anti-establistment vibe. We love local music, metal, punk, rap, and generally giving authority the finger. So let's build an app that lets other people do that stuff too!
+Also we're music fans and we generally have a punk rock, anti-establishment vibe. We love local music, metal, punk, rap, and generally giving authority the finger. So let's build an app that lets other people do that stuff too!
 
 ## Permissive License
 MIT License
@@ -131,7 +131,7 @@ MIT License
     The above copyright notice and this permission notice shall be included in all
     copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS ORP
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -144,7 +144,7 @@ MIT License
 
 ## Running Locally
 
-To run this locally you will need accounts at [Map Box](https://www.mapbox.com/), [Clerk](https://clerk.com/), and [Cloudinary](https://cloudinary.com/), and Docker installed.
+To run this locally you will need accounts at [Mapbox](https://www.mapbox.com/), [Clerk](https://clerk.com/), and [Cloudinary](https://cloudinary.com/), and Docker installed.
 
 1. Copy the contents of `.env.defaults` to `.env` and update the values with your API keys from the accounts above.
 
