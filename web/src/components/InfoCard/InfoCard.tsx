@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import { MapScene } from 'src/pages/FindPage/FindPage'
+
+import { fourHoursLater } from 'src/lib/dates'
+import { useAuth } from 'src/auth'
+
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
-import { useAuth } from 'src/auth'
+import LiveTag from 'src/components/LiveTag/LiveTag'
+
 import { Scene, User } from 'types/graphql'
-import { fourHoursLater } from 'src/lib/dates'
 
 enum ScreenProgress {
   OVERVIEW,
@@ -53,28 +56,34 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
             <PaperTitle>{scene.title}</PaperTitle>
           </div>
 
-          <div>
-            {typeof crowded === 'boolean' && (
-              <div className="mb-4 flex items-center bg-black px-3 text-right">
-                <p className="rotate-[1.2deg] text-sm font-bold uppercase">
-                  {crowded ? 'Packed place' : 'Kinda Empty'}
-                </p>
-                <p className="-translate-y-2 translate-x-4 text-2xl">
-                  {crowded ? '🥳' : '🫥'}
-                </p>
-              </div>
+          <div className="flex w-full items-end justify-between">
+            {scene.averages?.live && !fourHoursLater(scene.createdAt) && (
+              <LiveTag />
             )}
 
-            {typeof vibe === 'boolean' && (
-              <div className="flex items-center bg-black px-3 text-right">
-                <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
-                  {vibe ? 'Great show' : 'So so show'}
-                </p>
-                <p className="-translate-y-2 translate-x-4 text-2xl">
-                  {vibe ? '🤩' : '😴'}
-                </p>
-              </div>
-            )}
+            <div className="ml-auto">
+              {typeof crowded === 'boolean' && (
+                <div className="mb-4 flex items-center bg-black px-3 text-right">
+                  <p className="rotate-[1.2deg] text-sm font-bold uppercase">
+                    {crowded ? 'Packed place' : 'Kinda Empty'}
+                  </p>
+                  <p className="-translate-y-2 translate-x-4 text-2xl">
+                    {crowded ? '🥳' : '🫥'}
+                  </p>
+                </div>
+              )}
+
+              {typeof vibe === 'boolean' && (
+                <div className="flex items-center bg-black px-3 text-right">
+                  <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
+                    {vibe ? 'Great show' : 'So so show'}
+                  </p>
+                  <p className="-translate-y-2 translate-x-4 text-2xl">
+                    {vibe ? '🤩' : '😴'}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -82,11 +91,6 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
           {screenProgress === ScreenProgress.OVERVIEW && (
             <>
               <div className="flex items-baseline gap-2">
-                <p className="text-base font-bold">
-                  {scene.averages?.live && !fourHoursLater(scene.createdAt)
-                    ? 'Live Now!'
-                    : 'Show Ended'}
-                </p>
                 {totalRatings && totalRatings > 0 ? (
                   <p className="text-sm">
                     {scene.averages?.totalRatings}{' '}

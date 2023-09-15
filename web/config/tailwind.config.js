@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {
         accent: '#ED454D',
-        'accent-dark': '#bb3b41',
+        'accent-dark': '#9f3a3f',
         tan: '#f3e8c6',
         neutral: {
           750: '#202020',
@@ -19,6 +19,7 @@ module.exports = {
       animation: {
         'fade-out': 'fade-out .6s 2s linear forwards',
         'fade-in': 'fade-in .2s linear forwards',
+        'pulse-live': 'pulse-live 2s linear alternate infinite',
       },
       keyframes: {
         'fade-out': {
@@ -28,6 +29,16 @@ module.exports = {
         'fade-in': {
           '0%': { opacity: '0%' },
           '100%': { opacity: '100%' },
+        },
+        'pulse-live': {
+          '0%': {
+            'background-color': '#ED454D',
+            'text-shadow': '0px 0px 0px rgba(255, 255, 255, 0.50)',
+          },
+          '100%': {
+            'background-color': '#9f3a3f',
+            'text-shadow': '0px 0px 10px rgba(255, 255, 255, 0.50)',
+          },
         },
       },
     },
