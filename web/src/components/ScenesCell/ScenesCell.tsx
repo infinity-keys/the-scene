@@ -4,6 +4,7 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { Marker } from 'react-map-gl'
 import { MapScene } from 'src/pages/FindPage/FindPage'
 import { fourHoursLater } from 'src/lib/dates'
+import { useInterval } from 'src/hooks/useInterval'
 
 export const QUERY = gql`
   query ScenesQuery {
@@ -19,6 +20,8 @@ export const QUERY = gql`
   }
 `
 
+const REFETCH_INTERVAL = 10000
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -30,9 +33,19 @@ export const Failure = ({ error }: CellFailureProps) => (
 export const Success = ({
   scenes,
   handleMarkerFocus,
+  queryResult,
 }: CellSuccessProps<ScenesQuery> & {
   handleMarkerFocus: (scene: MapScene) => void
 }) => {
+  useInterval(
+    () => {
+      if (queryResult?.refetch) {
+        queryResult.refetch()
+      }
+    },
+    queryResult?.refetch ? REFETCH_INTERVAL : null
+  )
+
   return (
     <>
       {scenes.map((scene) => {
