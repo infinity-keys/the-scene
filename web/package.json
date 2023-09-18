@@ -27,6 +27,7 @@
     "react-geolocated": "^4.1.2",
     "react-input-slider": "^6.0.1",
     "react-map-gl": "^7.1.5",
+    "react-type-animation": "^3.1.0",
     "react-webcam": "^7.1.1"
   },
   "devDependencies": {

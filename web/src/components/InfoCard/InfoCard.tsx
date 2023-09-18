@@ -53,7 +53,7 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
           }}
         >
           <div className="px-4 text-center md:px-8">
-            <PaperTitle>{scene.title}</PaperTitle>
+            <PaperTitle text={scene.title} withAnimation />
           </div>
 
           <div className="flex w-full items-end justify-between">

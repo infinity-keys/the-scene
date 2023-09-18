@@ -1,14 +1,20 @@
 import type { ScenesQuery } from 'types/graphql'
+import clsx from 'clsx'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { Marker } from 'react-map-gl'
 import { MapScene } from 'src/pages/FindPage/FindPage'
+import { fourHoursLater } from 'src/lib/dates'
 
 export const QUERY = gql`
   query ScenesQuery {
     scenes {
       id
+      createdAt
       latitude
       longitude
+      averages {
+        live
+      }
     }
   }
 `
@@ -30,6 +36,8 @@ export const Success = ({
   return (
     <>
       {scenes.map((scene) => {
+        const live = scene.averages?.live && !fourHoursLater(scene.createdAt)
+
         return (
           <Marker
             latitude={scene.latitude}
@@ -40,7 +48,9 @@ export const Success = ({
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 fill-tan"
+              className={clsx(
+                live ? 'h-8 w-8 fill-tan' : 'h-5 w-5 fill-gray-400'
+              )}
               viewBox="0 0 24 24"
             >
               <path

@@ -10,7 +10,7 @@ const TitleInput = ({
   return (
     <div className="mb-6 flex flex-col gap-1">
       <label htmlFor="title" className="pb-2">
-        What is the band called?
+        Event Title
       </label>
       <div className="relative">
         <textarea
