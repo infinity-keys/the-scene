@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
@@ -16,7 +16,7 @@ const FindPage = () => {
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
-    zoom: 9,
+    zoom: 15,
   })
 
   const handleMarkerFocus = useCallback(
@@ -57,6 +57,7 @@ const FindPage = () => {
       <Map
         {...viewState}
         reuseMaps
+        dragRotate={false}
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
         onDrag={() => setSelectedSceneId(null)}
