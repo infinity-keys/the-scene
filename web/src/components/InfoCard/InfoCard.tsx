@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { MapScene } from 'src/pages/FindPage/FindPage'
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
@@ -50,7 +49,7 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
           }}
         >
           <div className="px-4 text-center md:px-8">
-            <PaperTitle>{scene.title}</PaperTitle>
+            <PaperTitle text={scene.title} withAnimation />
           </div>
 
           <div>

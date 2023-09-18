@@ -141,7 +141,7 @@ const SharePage = () => {
               <img className="w-full" src={imageSrc} />
               {bandName && (
                 <div className="absolute p-8">
-                  <PaperTitle>{bandName}</PaperTitle>
+                  <PaperTitle text={bandName} />
                 </div>
               )}
             </div>
