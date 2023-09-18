@@ -7,8 +7,8 @@ import { fourHoursLater } from 'src/lib/dates'
 import { useInterval } from 'src/hooks/useInterval'
 
 export const QUERY = gql`
-  query ScenesQuery {
-    scenes {
+  query ScenesQuery($bounds: BoundsInput!) {
+    scenes(bounds: $bounds) {
       id
       createdAt
       latitude

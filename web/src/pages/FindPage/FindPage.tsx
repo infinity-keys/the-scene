@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
@@ -6,18 +6,27 @@ import { Scene } from 'types/graphql'
 import ScenesCell from 'src/components/ScenesCell'
 import SceneCell from 'src/components/SceneCell'
 import { MetaTags } from '@redwoodjs/web'
+import type { MapRef } from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 export type MapScene = Pick<Scene, 'id' | 'latitude' | 'longitude'>
+export type MapBounds = {
+  north: number
+  south: number
+  east: number
+  west: number
+}
 
 const FindPage = () => {
   const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null)
+  const [bounds, setBounds] = useState<MapBounds | null>(null)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
     zoom: 15,
   })
+  const mapRef = useRef<MapRef | null>(null)
 
   const handleMarkerFocus = useCallback(
     (scene: MapScene) => {
@@ -56,11 +65,20 @@ const FindPage = () => {
 
       <Map
         {...viewState}
+        ref={mapRef}
         reuseMaps
         dragRotate={false}
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
         onDrag={() => setSelectedSceneId(null)}
+        onMoveEnd={() => {
+          const mapBounds = mapRef.current?.getMap().getBounds().toArray()
+          if (!mapBounds) {
+            return
+          }
+          const [[west, south], [east, north]] = mapBounds
+          setBounds({ north, south, east, west })
+        }}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
@@ -75,7 +93,9 @@ const FindPage = () => {
           </Marker>
         )}
 
-        <ScenesCell handleMarkerFocus={handleMarkerFocus} />
+        {bounds && (
+          <ScenesCell handleMarkerFocus={handleMarkerFocus} bounds={bounds} />
+        )}
       </Map>
 
       {selectedSceneId && (

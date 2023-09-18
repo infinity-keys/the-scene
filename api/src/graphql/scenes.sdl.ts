@@ -22,8 +22,15 @@ export const schema = gql`
     totalRatings: Int
   }
 
+  input BoundsInput {
+    north: Float!
+    south: Float!
+    east: Float!
+    west: Float!
+  }
+
   type Query {
-    scenes: [Scene!]! @skipAuth
+    scenes(bounds: BoundsInput!): [Scene!]! @skipAuth
     scene(id: String!): Scene @skipAuth
   }
 
