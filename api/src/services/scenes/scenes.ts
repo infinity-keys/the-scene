@@ -14,8 +14,21 @@ const options = {
   overwrite: true,
 }
 
-export const scenes: QueryResolvers['scenes'] = () => {
-  return db.scene.findMany()
+export const scenes: QueryResolvers['scenes'] = ({
+  bounds: { north, south, east, west },
+}) => {
+  return db.scene.findMany({
+    where: {
+      latitude: {
+        gte: south,
+        lte: north,
+      },
+      longitude: {
+        gte: west,
+        lte: east,
+      },
+    },
+  })
 }
 
 export const scene: QueryResolvers['scene'] = ({ id }) => {
