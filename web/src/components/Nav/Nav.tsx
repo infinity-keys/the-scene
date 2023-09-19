@@ -13,7 +13,6 @@ import { useAddToHomescreenPrompt } from 'src/hooks/usePWAInstallPrompt'
 
 const Nav = () => {
   const { isAuthenticated, logIn, logOut, userMetadata } = useAuth()
-  console.log(userMetadata?.id)
   const { pathname } = useLocation()
   const [prompt, promptToInstall] = useAddToHomescreenPrompt()
   const [isVisible, setVisibleState] = useState(false)

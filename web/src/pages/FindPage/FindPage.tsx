@@ -100,7 +100,10 @@ const FindPage = () => {
 
       {selectedSceneId && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
-          <SceneCell id={selectedSceneId} />
+          <SceneCell
+            setSelectedSceneId={setSelectedSceneId}
+            id={selectedSceneId}
+          />
         </div>
       )}
     </div>

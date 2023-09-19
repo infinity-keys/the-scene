@@ -35,7 +35,13 @@ type SceneInfo = Pick<
   user?: Pick<User, 'username' | 'avatar'> | null
 }
 
-const InfoCard = ({ scene }: { scene: SceneInfo }) => {
+const InfoCard = ({
+  scene,
+  setSelectedSceneId,
+}: {
+  scene: SceneInfo
+  setSelectedSceneId: (s: string | null) => void
+}) => {
   // // (Framermotion) State of the card's visibility independent of renedering state
   // const isVisibleRef = useRef(true);
 
@@ -89,9 +95,12 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
         <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
         <div className="relative bg-neutral-750">
-          <div className="absolute h-8 w-8 rounded">
+          <button
+            onClick={() => setSelectedSceneId(null)}
+            className="absolute right-0 top-0 h-8 w-8 -translate-y-1/2 translate-x-1/2 rounded bg-neutral-600"
+          >
             <CloseIcon />
-          </div>
+          </button>
           <div
             className="flex min-h-[250px] flex-col items-end justify-between gap-2 bg-cover bg-center p-3 text-xs font-normal"
             style={{
