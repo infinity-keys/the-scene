@@ -20136,6 +20136,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nuka-carousel@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "nuka-carousel@npm:6.0.3"
+  peerDependencies:
+    react: ">=18.0.0"
+    react-dom: ">=18.0.0"
+  checksum: 27c57f2f8f3ceb2866d9e3a47c92f47c7b7beb9ac8b466db70f424bf151b443f2859a8dee90360ea1352f93afda99bd3a8b312d26d3f2a0fa0f0e65f68ff9da0
+  languageName: node
+  linkType: hard
+
 "null-loader@npm:4.0.1":
   version: 4.0.1
   resolution: "null-loader@npm:4.0.1"
@@ -26165,6 +26175,7 @@ __metadata:
     clsx: ^2.0.0
     framer-motion: ^10.16.4
     mapbox-gl: ^2.15.0
+    nuka-carousel: ^6.0.3
     postcss: ^8.4.28
     postcss-loader: ^7.3.3
     prop-types: 15.8.1

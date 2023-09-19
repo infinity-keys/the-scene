@@ -1,6 +1,8 @@
 import type { FindSceneQuery, FindSceneQueryVariables } from 'types/graphql'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import InfoCard from '../InfoCard/InfoCard'
+import { LoaderIcon } from '@redwoodjs/web/dist/toast'
+
+import InfoCard from 'src/components/InfoCard/InfoCard'
 
 export const QUERY = gql`
   query FindSceneQuery($id: String!) {
@@ -27,7 +29,11 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => (
+  <div className="flex justify-center">
+    <LoaderIcon />
+  </div>
+)
 
 export const Empty = () => <div>Empty</div>
 
