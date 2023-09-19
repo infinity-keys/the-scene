@@ -5,7 +5,7 @@ export default async () => {
   try {
     const userData: CreateUserInput[] = [
       {
-        authId: 'user_2VRGdePMfseqswq3n8x5X22dZKO',
+        authId: 'user_2VaRUjEjc1zr7nvP66EGZASAooQ',
         username: 'rick.a.burd',
         avatar:
           'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yVlJHZGIyN3hNQnAyNUdzUXlQckoxWksxSE8uanBlZyJ9',
