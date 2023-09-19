@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+// (Framermotion)
+// import { useState, useRef } from 'react'
 
+import { useState } from 'react'
 import { fourHoursLater } from 'src/lib/dates'
 import { useAuth } from 'src/auth'
 
@@ -36,35 +38,35 @@ type SceneInfo = Pick<
 
 const InfoCard = ({ scene }: { scene: SceneInfo }) => {
 
-  // (Framermotion) State of the card's visibility independent of renedering state
-  const isVisibleRef = useRef(true);
+  // // (Framermotion) State of the card's visibility independent of renedering state
+  // const isVisibleRef = useRef(true);
 
-  // (Framermotion) User sets direction regardless of component tree state
-  const exitDirectionRef = useRef<'right' | 'left'>('right');
+  // // (Framermotion) User sets direction regardless of component tree state
+  // const exitDirectionRef = useRef<'right' | 'left'>('right');
 
-  // (Framermotion) Initial direction the card will exit the viewport
-  const [exitDirection] = useState<'right' | 'left'>('right');
+  // // (Framermotion) Initial direction the card will exit the viewport
+  // const [exitDirection] = useState<'right' | 'left'>('right');
 
-  // (Framermotion) Function called in render block to determine exit direction
-  const getContainerVariants = (exitDirection: 'right' | 'left') => {
-    const renderExitDirection = {
-      // `<motion.div>'s` `exit` prop set to ternary operator
-      exit: { x: exitDirection === 'right' ? '100vw' : '-100vw' },
-    };
-    return renderExitDirection;
-  };
+  // // (Framermotion) Function called in render block to determine exit direction
+  // const getContainerVariants = (exitDirection: 'right' | 'left') => {
+  //   const renderExitDirection = {
+  //     // `<motion.div>'s` `exit` prop set to ternary operator
+  //     exit: { x: exitDirection === 'right' ? '100vw' : '-100vw' },
+  //   };
+  //   return renderExitDirection;
+  // };
 
-  // (Framermotion) called in render block to determine exit direction
-  const handleMotionDrag = (e: MouseEvent, info: PanInfo) => {
-    if (info.offset.x > 1) { // user swipes right
-      exitDirectionRef.current = 'right'; // card will exit right
-      isVisibleRef.current = false; // card will be hidden
-    }
-    else if (info.offset.x < -1) { // user swipes left
-      exitDirectionRef.current = 'left'; // card will exit left
-      isVisibleRef.current = false; // card will be hidden
-    }
-  };
+  // // (Framermotion) called in render block to determine exit direction
+  // const handleMotionDrag = (e: MouseEvent, info: PanInfo) => {
+  //   if (info.offset.x > 1) { // user swipes right
+  //     exitDirectionRef.current = 'right'; // card will exit right
+  //     isVisibleRef.current = false; // card will be hidden
+  //   }
+  //   else if (info.offset.x < -1) { // user swipes left
+  //     exitDirectionRef.current = 'left'; // card will exit left
+  //     isVisibleRef.current = false; // card will be hidden
+  //   }
+  // };
 
   const { isAuthenticated, logIn } = useAuth()
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
@@ -75,7 +77,7 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
 
   return (
     <div>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isVisibleRef && (
           <motion.div
             drag="x" // Enable drag along the x-axis
@@ -83,7 +85,7 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
             initial={{ x: '-100vw' }} // Initial state off screen to the left
             animate={{ x: 100 }} // Moves in from left to right & center
             variants={getContainerVariants(exitDirection)}
-          >
+          > */}
             <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
               <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
               <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
@@ -184,9 +186,9 @@ const InfoCard = ({ scene }: { scene: SceneInfo }) => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          {/* </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   )
 }
