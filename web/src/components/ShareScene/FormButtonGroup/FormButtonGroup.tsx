@@ -9,7 +9,8 @@ const FormButtonGroup = ({
   previousText = 'Back',
   nextText = (
     <>
-      Continue <img className="block h-7 w-7" src={StarryEyesEmoji} />
+      Continue
+      <img className="ml-1 inline-block h-5 w-5" src={StarryEyesEmoji} />
     </>
   ),
   previousDisabled = false,
