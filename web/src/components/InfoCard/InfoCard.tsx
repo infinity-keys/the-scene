@@ -1,5 +1,5 @@
 // (Framermotion)
-// import { useState, useRef } from 'react'
+// import { motion, AnimatePresence, PanInfo } from "framer-motion"
 
 import { useState } from 'react'
 import { fourHoursLater } from 'src/lib/dates'
@@ -10,7 +10,7 @@ import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
 import RateScene from 'src/components/RateScene/RateScene'
 import LiveTag from 'src/components/LiveTag/LiveTag'
-import { motion, AnimatePresence, PanInfo } from 'framer-motion'
+import CloseIcon from 'src/icons/CloseIcon'
 
 import { Scene, User } from 'types/graphql'
 
@@ -38,9 +38,11 @@ type SceneInfo = Pick<
 const InfoCard = ({
   scene,
   setScreenStatus,
+  setSelectedSceneId,
 }: {
   scene: SceneInfo
   setScreenStatus?: (b: ScreenProgress) => void
+  setSelectedSceneId: (s: string | null) => void
 }) => {
   // // (Framermotion) State of the card's visibility independent of renedering state
   // const isVisibleRef = useRef(true);
@@ -102,6 +104,12 @@ const InfoCard = ({
         <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
         <div className="relative bg-neutral-750">
+          <button
+            onClick={() => setSelectedSceneId(null)}
+            className="absolute right-0 top-0 h-8 w-8 -translate-y-1/2 translate-x-1/2 rounded bg-neutral-600"
+          >
+            <CloseIcon />
+          </button>
           <div
             className="flex min-h-[250px] flex-col items-end justify-between gap-2 bg-cover bg-center p-3 text-xs font-normal"
             style={{

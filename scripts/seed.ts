@@ -11,7 +11,7 @@ export default async () => {
           'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yVlJHZGIyN3hNQnAyNUdzUXlQckoxWksxSE8uanBlZyJ9',
       },
       {
-        authId: 'user_2V89Pr3Wgs39cpmZnnoZoFTT39o',
+        authId: 'user_2VRUWMtO4h0ljPqlfn59q2807xG',
         username: 'itsmekori',
         avatar:
           'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yVjg5UHpRRTdKNmlaSjFudzRPQ2M3N1UwbzMucG5nIn0',
