@@ -1,11 +1,17 @@
 import { ReactElement } from 'react'
 import Button from 'src/components/Button/Button'
 
+import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
+
 const FormButtonGroup = ({
   previous,
   next,
   previousText = 'Back',
-  nextText = 'Continue 🤩',
+  nextText = (
+    <>
+      Continue <img className="block h-7 w-7" src={StarryEyesEmoji} />
+    </>
+  ),
   previousDisabled = false,
   nextDisabled = false,
 }: {
