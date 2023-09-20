@@ -38,11 +38,11 @@ type SceneInfo = Pick<
 const InfoCard = ({
   scene,
   setScreenStatus,
-  setSelectedSceneId,
+  closeCard,
 }: {
   scene: SceneInfo
   setScreenStatus?: (b: ScreenProgress) => void
-  setSelectedSceneId: (s: string | null) => void
+  closeCard: () => void
 }) => {
   // // (Framermotion) State of the card's visibility independent of renedering state
   // const isVisibleRef = useRef(true);
@@ -105,7 +105,7 @@ const InfoCard = ({
 
         <div className="relative bg-neutral-750">
           <button
-            onClick={() => setSelectedSceneId(null)}
+            onClick={closeCard}
             className="absolute right-0 top-0 h-8 w-8 -translate-y-1/2 translate-x-1/2 rounded bg-neutral-600"
           >
             <CloseIcon />

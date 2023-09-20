@@ -85,6 +85,7 @@ const FindPage = () => {
         }}
         onMoveEnd={() => {
           const mapBounds = mapRef.current?.getMap().getBounds().toArray()
+
           if (!mapBounds) {
             return
           }
@@ -115,17 +116,23 @@ const FindPage = () => {
       </Map>
 
       {selectedSceneId && (
-        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
+        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-6">
           <SceneCell
-            setSelectedSceneId={setSelectedSceneId}
             id={selectedSceneId}
+            closeCard={() => setSelectedSceneId(null)}
           />
         </div>
       )}
 
       {bounds && showCarousel && !selectedSceneId && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-lg -translate-x-1/2">
-          <CarouselCell bounds={bounds} />
+          <CarouselCell
+            bounds={bounds}
+            closeCard={() => {
+              setShowCarousel(false)
+              setHighlightedSceneId(null)
+            }}
+          />
         </div>
       )}
 

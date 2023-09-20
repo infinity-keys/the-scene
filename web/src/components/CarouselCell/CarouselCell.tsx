@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Carousel from 'nuka-carousel'
 import { LoaderIcon } from '@redwoodjs/web/dist/toast'
+import clsx from 'clsx'
 
 import { useMapData } from 'src/providers/mapData'
 import InfoCard, { ScreenProgress } from 'src/components/InfoCard/InfoCard'
@@ -52,7 +53,10 @@ export const Failure = ({
 
 export const Success = ({
   scenes,
-}: CellSuccessProps<FindCarouselQuery, FindCarouselQueryVariables>) => {
+  closeCard,
+}: CellSuccessProps<FindCarouselQuery, FindCarouselQueryVariables> & {
+  closeCard: () => void
+}) => {
   const [screenStatus, setScreenStatus] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW
   )
@@ -71,13 +75,22 @@ export const Success = ({
       swiping={screenStatus === ScreenProgress.OVERVIEW && multipleScenes}
       dragging={screenStatus === ScreenProgress.OVERVIEW && multipleScenes}
       slidesToShow={multipleScenes ? 1.05 : 1}
-      className="pb-3"
+      className="pb-3 pt-5"
       afterSlide={(index) => setHighlightedSceneId(scenes[index].id)}
       wrapAround={multipleScenes}
     >
       {scenes.map((scene) => (
-        <div key={scene.id} className="flex h-full flex-col justify-end">
-          <InfoCard scene={scene} setScreenStatus={setScreenStatus} />
+        <div
+          key={scene.id}
+          className={clsx('flex h-full flex-col justify-end', {
+            'pr-4': !multipleScenes,
+          })}
+        >
+          <InfoCard
+            scene={scene}
+            closeCard={closeCard}
+            setScreenStatus={setScreenStatus}
+          />
         </div>
       ))}
     </Carousel>

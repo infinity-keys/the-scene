@@ -45,9 +45,9 @@ export const Failure = ({
 
 export const Success = ({
   scene,
-  setSelectedSceneId,
+  closeCard,
 }: CellSuccessProps<FindSceneQuery, FindSceneQueryVariables> & {
-  setSelectedSceneId: (s: string | null) => void
+  closeCard: () => void
 }) => {
-  return <InfoCard setSelectedSceneId={setSelectedSceneId} scene={scene} />
+  return <InfoCard closeCard={closeCard} scene={scene} />
 }
