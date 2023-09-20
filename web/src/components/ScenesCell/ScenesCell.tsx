@@ -1,10 +1,13 @@
-import type { ScenesQuery } from 'types/graphql'
+import { useEffect } from 'react'
 import clsx from 'clsx'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { Marker } from 'react-map-gl'
-import { MapScene } from 'src/pages/FindPage/FindPage'
 import { fourHoursLater } from 'src/lib/dates'
 import { useInterval } from 'src/hooks/useInterval'
+import { useMapData } from 'src/providers/mapData'
+import { MapScene } from 'src/pages/FindPage/FindPage'
+
+import type { ScenesQuery } from 'types/graphql'
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 export const QUERY = gql`
   query ScenesQuery($bounds: BoundsInput!) {
@@ -22,9 +25,19 @@ export const QUERY = gql`
 
 const REFETCH_INTERVAL = 10000
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div></div>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = ({
+  setShowCarouselButton,
+}: {
+  setShowCarouselButton: (b: boolean) => void
+}) => {
+  useEffect(() => {
+    setShowCarouselButton(false)
+  }, [setShowCarouselButton])
+
+  return null
+}
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
@@ -33,9 +46,11 @@ export const Failure = ({ error }: CellFailureProps) => (
 export const Success = ({
   scenes,
   handleMarkerFocus,
+  setShowCarouselButton,
   queryResult,
 }: CellSuccessProps<ScenesQuery> & {
   handleMarkerFocus: (scene: MapScene) => void
+  setShowCarouselButton: (b: boolean) => void
 }) => {
   useInterval(
     () => {
@@ -45,11 +60,17 @@ export const Success = ({
     },
     queryResult?.refetch ? REFETCH_INTERVAL : null
   )
+  const { highlightedSceneId } = useMapData()
+
+  useEffect(() => {
+    setShowCarouselButton(scenes.length > 0)
+  }, [setShowCarouselButton, scenes])
 
   return (
     <>
       {scenes.map((scene) => {
         const live = scene.averages?.live && !fourHoursLater(scene.createdAt)
+        const highlighted = highlightedSceneId === scene.id
 
         return (
           <Marker
@@ -61,9 +82,11 @@ export const Success = ({
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={clsx(
-                live ? 'h-8 w-8 fill-tan' : 'h-5 w-5 fill-gray-400'
-              )}
+              className={clsx({
+                'h-8 w-8 fill-accent': highlighted,
+                'h-8 w-8 fill-tan': live && !highlighted,
+                'h-5 w-5 fill-gray-400': !live && !highlighted,
+              })}
               viewBox="0 0 24 24"
             >
               <path

@@ -3,9 +3,14 @@ import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
 import { Scene } from 'types/graphql'
+
+import { MetaTags } from '@redwoodjs/web'
 import ScenesCell from 'src/components/ScenesCell'
 import SceneCell from 'src/components/SceneCell'
-import { MetaTags } from '@redwoodjs/web'
+import CarouselCell from 'src/components/CarouselCell'
+import Button from 'src/components/Button/Button'
+import { useMapData } from 'src/providers/mapData'
+
 import type { MapRef } from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -21,12 +26,15 @@ export type MapBounds = {
 const FindPage = () => {
   const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null)
   const [bounds, setBounds] = useState<MapBounds | null>(null)
+  const [showCarouselButton, setShowCarouselButton] = useState(false)
+  const [showCarousel, setShowCarousel] = useState(false)
   const [viewState, setViewState] = useState({
     latitude: 37.8,
     longitude: -122.4,
     zoom: 15,
   })
   const mapRef = useRef<MapRef | null>(null)
+  const { setHighlightedSceneId } = useMapData()
 
   const handleMarkerFocus = useCallback(
     (scene: MapScene) => {
@@ -70,9 +78,14 @@ const FindPage = () => {
         dragRotate={false}
         onMove={(e) => setViewState(e.viewState)}
         // Close current event info when user drags map
-        onDrag={() => setSelectedSceneId(null)}
+        onDragStart={() => {
+          setSelectedSceneId(null)
+          setHighlightedSceneId(null)
+          setShowCarousel(false)
+        }}
         onMoveEnd={() => {
           const mapBounds = mapRef.current?.getMap().getBounds().toArray()
+
           if (!mapBounds) {
             return
           }
@@ -94,16 +107,40 @@ const FindPage = () => {
         )}
 
         {bounds && (
-          <ScenesCell handleMarkerFocus={handleMarkerFocus} bounds={bounds} />
+          <ScenesCell
+            handleMarkerFocus={handleMarkerFocus}
+            bounds={bounds}
+            setShowCarouselButton={setShowCarouselButton}
+          />
         )}
       </Map>
 
       {selectedSceneId && (
-        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-4">
+        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-6">
           <SceneCell
-            setSelectedSceneId={setSelectedSceneId}
             id={selectedSceneId}
+            closeCard={() => setSelectedSceneId(null)}
           />
+        </div>
+      )}
+
+      {bounds && showCarousel && !selectedSceneId && (
+        <div className="absolute bottom-16 left-1/2 w-full max-w-lg -translate-x-1/2">
+          <CarouselCell
+            bounds={bounds}
+            closeCard={() => {
+              setShowCarousel(false)
+              setHighlightedSceneId(null)
+            }}
+          />
+        </div>
+      )}
+
+      {!selectedSceneId && !showCarousel && showCarouselButton && (
+        <div className="absolute bottom-16 left-1/2 w-full max-w-[150px] -translate-x-1/2">
+          <Button accent selected onClick={() => setShowCarousel(true)}>
+            Show Scenes
+          </Button>
         </div>
       )}
     </div>

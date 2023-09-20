@@ -23,7 +23,7 @@ export default async () => {
           'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yVjhKYXJpQXRHZDF2M2I2N2hFcU9jcVJlRDQuanBlZyJ9',
       },
       {
-        authId: 'user_2V7l94z3GtmHjzyvjmRSRji88cn',
+        authId: 'user_2VOwLToBC4BrGBesk7aDIfTmn8I',
         username: '__shax__',
         avatar:
           'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZGlzY29yZC9pbWdfMlY3bDk5YkhCTWhlbXBrdkgzTWZleGJDR1YwLnBuZyJ9',

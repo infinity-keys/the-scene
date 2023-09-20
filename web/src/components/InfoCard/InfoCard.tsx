@@ -14,7 +14,7 @@ import CloseIcon from 'src/icons/CloseIcon'
 
 import { Scene, User } from 'types/graphql'
 
-enum ScreenProgress {
+export enum ScreenProgress {
   OVERVIEW,
   RATE,
   DETAILS,
@@ -37,10 +37,12 @@ type SceneInfo = Pick<
 
 const InfoCard = ({
   scene,
-  setSelectedSceneId,
+  setScreenStatus,
+  closeCard,
 }: {
   scene: SceneInfo
-  setSelectedSceneId: (s: string | null) => void
+  setScreenStatus?: (b: ScreenProgress) => void
+  closeCard: () => void
 }) => {
   // // (Framermotion) State of the card's visibility independent of renedering state
   // const isVisibleRef = useRef(true);
@@ -79,6 +81,13 @@ const InfoCard = ({
 
   const { crowded, vibe, totalRatings } = scene.averages || {}
 
+  const handleScreenProgress = (currentScreen: ScreenProgress) => {
+    setScreenProgress(currentScreen)
+    if (setScreenStatus) {
+      setScreenStatus(currentScreen)
+    }
+  }
+
   return (
     <div>
       {/* <AnimatePresence>
@@ -96,7 +105,7 @@ const InfoCard = ({
 
         <div className="relative bg-neutral-750">
           <button
-            onClick={() => setSelectedSceneId(null)}
+            onClick={closeCard}
             className="absolute right-0 top-0 h-8 w-8 -translate-y-1/2 translate-x-1/2 rounded bg-neutral-600"
           >
             <CloseIcon />
@@ -157,7 +166,7 @@ const InfoCard = ({
                 <div className="flex gap-3 pt-4">
                   <Button
                     fullWidth
-                    onClick={() => setScreenProgress(ScreenProgress.DETAILS)}
+                    onClick={() => handleScreenProgress(ScreenProgress.DETAILS)}
                   >
                     + INFO
                   </Button>
@@ -166,7 +175,7 @@ const InfoCard = ({
                     <Button
                       fullWidth
                       accent
-                      onClick={() => setScreenProgress(ScreenProgress.RATE)}
+                      onClick={() => handleScreenProgress(ScreenProgress.RATE)}
                     >
                       Rate This Scene
                     </Button>
@@ -182,15 +191,17 @@ const InfoCard = ({
             {screenProgress === ScreenProgress.RATE && (
               <RateScene
                 sceneId={scene.id}
-                previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
-                onRateSuccess={() => setScreenProgress(ScreenProgress.OVERVIEW)}
+                previous={() => handleScreenProgress(ScreenProgress.OVERVIEW)}
+                onRateSuccess={() =>
+                  handleScreenProgress(ScreenProgress.OVERVIEW)
+                }
               />
             )}
 
             {screenProgress === ScreenProgress.DETAILS && (
               <SceneDetails
                 scene={scene}
-                previous={() => setScreenProgress(ScreenProgress.OVERVIEW)}
+                previous={() => handleScreenProgress(ScreenProgress.OVERVIEW)}
               />
             )}
           </div>
