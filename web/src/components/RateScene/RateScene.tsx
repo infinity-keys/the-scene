@@ -9,6 +9,11 @@ import Button from 'src/components/Button/Button'
 import RatingSlider from 'src/components/RatingSlider/RatingSlider'
 import clsx from 'clsx'
 
+import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
+import PartyEmoji from 'src/images/PartyEmoji.webp'
+import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
+import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
+
 const RATE_SCENE_MUTATION = gql`
   mutation RateSceneMutation(
     $input: CreateSceneRatingInput!
@@ -88,18 +93,26 @@ const RateScene = ({
       <div className="mb-4">
         <p>How is the show?</p>
         <div className="mt-2 flex items-center gap-4">
-          <p className="text-2xl">😴</p>
+          <p className="text-2xl">
+            <img className="block h-7 w-7" src={SnoozeEmoji} />
+          </p>
           <RatingSlider onChange={setVibe} value={vibe.x} />
-          <p className="text-2xl">🤩</p>
+          <p className="text-2xl">
+            <img className="block h-7 w-7" src={StarryEyesEmoji} />
+          </p>
         </div>
       </div>
 
       <div className="mb-8">
         <p>Is it packed?</p>
         <div className="mt-2 flex items-center gap-4">
-          <p className="text-2xl">🫥</p>
+          <p className="text-2xl">
+            <img className="block h-7 w-7" src={EmptyFaceEmoji} />
+          </p>
           <RatingSlider onChange={setCrowded} value={crowded.x} />
-          <p className="text-2xl">🥳</p>
+          <p className="text-2xl">
+            <img className="block h-7 w-7" src={PartyEmoji} />
+          </p>
         </div>
       </div>
 

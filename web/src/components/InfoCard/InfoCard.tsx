@@ -13,6 +13,10 @@ import LiveTag from 'src/components/LiveTag/LiveTag'
 import CloseIcon from 'src/icons/CloseIcon'
 
 import { Scene, User } from 'types/graphql'
+import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
+import PartyEmoji from 'src/images/PartyEmoji.webp'
+import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
+import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -131,9 +135,13 @@ const InfoCard = ({
                     <p className="rotate-[1.2deg] text-sm font-bold uppercase">
                       {crowded ? 'Packed place' : 'Kinda Empty'}
                     </p>
-                    <p className="-translate-y-2 translate-x-4 text-2xl">
-                      {crowded ? '🥳' : '🫥'}
-                    </p>
+                    <div className="-translate-y-2 translate-x-4 text-2xl">
+                      {crowded ? (
+                        <img className="block h-7 w-7" src={PartyEmoji} />
+                      ) : (
+                        <img className="block h-7 w-7" src={EmptyFaceEmoji} />
+                      )}
+                    </div>
                   </div>
                 )}
 
@@ -142,9 +150,13 @@ const InfoCard = ({
                     <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
                       {vibe ? 'Great show' : 'So so show'}
                     </p>
-                    <p className="-translate-y-2 translate-x-4 text-2xl">
-                      {vibe ? '🤩' : '😴'}
-                    </p>
+                    <div className="-translate-y-2 translate-x-4 text-2xl">
+                      {vibe ? (
+                        <img className="block h-7 w-7" src={StarryEyesEmoji} />
+                      ) : (
+                        <img className="block h-7 w-7" src={SnoozeEmoji} />
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
