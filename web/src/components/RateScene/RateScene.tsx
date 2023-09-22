@@ -29,14 +29,30 @@ const RateScene = ({
   sceneId,
   previous,
   onRateSuccess,
+  currentUserRating,
 }: {
   sceneId: string
   previous: () => void
   onRateSuccess: () => void
+  currentUserRating?: {
+    id: string
+    live: boolean
+    vibe: number
+    crowded: number
+  }
 }) => {
   const [live, setLive] = useState<boolean | null>(null)
-  const [vibe, setVibe] = useState({ x: 5, y: 0 })
-  const [crowded, setCrowded] = useState({ x: 5, y: 0 })
+  const [vibe, setVibe] = useState({
+    x: typeof currentUserRating?.vibe === 'number' ? currentUserRating.vibe : 5,
+    y: 0,
+  })
+  const [crowded, setCrowded] = useState({
+    x:
+      typeof currentUserRating?.crowded === 'number'
+        ? currentUserRating.crowded
+        : 5,
+    y: 0,
+  })
 
   const [rateScene, { loading }] = useMutation<
     RateSceneMutation,
