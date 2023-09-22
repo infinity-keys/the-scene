@@ -32,6 +32,7 @@ type SceneInfo = Pick<
   | 'link'
   | 'info'
   | 'averages'
+  | 'currentUserRating'
 > & {
   user?: Pick<User, 'username' | 'avatar'> | null
 }
@@ -165,6 +166,7 @@ const InfoCard = ({
                 onRateSuccess={() =>
                   handleScreenProgress(ScreenProgress.OVERVIEW)
                 }
+                currentUserRating={scene.currentUserRating?.[0] || undefined}
               />
             )}
 

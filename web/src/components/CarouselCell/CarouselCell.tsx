@@ -33,6 +33,12 @@ export const QUERY = gql`
         live
         totalRatings
       }
+      currentUserRating {
+        id
+        live
+        vibe
+        crowded
+      }
     }
   }
 `

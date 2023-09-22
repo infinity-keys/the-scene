@@ -116,4 +116,12 @@ export const Scene: SceneRelationResolvers = {
       totalRatings: _count._all,
     }
   },
+  currentUserRating: (_obj, { root }) => {
+    if (!context.currentUser?.id) {
+      return []
+    }
+    return db.scene.findUnique({ where: { id: root?.id } }).ratings({
+      where: { sceneId: root?.id, userId: context.currentUser.id },
+    })
+  },
 }
