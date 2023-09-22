@@ -25,7 +25,7 @@ const Button = ({
   disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
-    "button-text-shadow border-2 bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white inline-block text-center px-4 py-2 bg-[url('/images/static.webp')] uppercase font-bold text-sm group relative transition-transform transform hover:scale-105 active:scale-90",
+    "button-text-shadow border-2 bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white inline-block text-center px-4 py-2 bg-[url('/images/static.webp')] uppercase font-bold text-sm relative transition-transform transform hover:scale-105 active:scale-90",
     // Width
     { 'w-full': fullWidth },
     // Borders
