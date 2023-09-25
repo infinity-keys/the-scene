@@ -2,7 +2,6 @@ import type {
   QueryResolvers,
   MutationResolvers,
   SceneRelationResolvers,
-  UserRelationResolvers,
 } from 'types/graphql'
 import { v2 as cloudinary } from 'cloudinary'
 import { db } from 'src/lib/db'

@@ -52,7 +52,6 @@ export const Success = ({
   handleMarkerFocus: (scene: MapScene) => void
   setShowCarouselButton: (b: boolean) => void
 }) => {
-  console.log(scenes)
   useInterval(
     () => {
       if (queryResult?.refetch) {
