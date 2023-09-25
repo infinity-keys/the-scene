@@ -52,6 +52,7 @@ export const Success = ({
   handleMarkerFocus: (scene: MapScene) => void
   setShowCarouselButton: (b: boolean) => void
 }) => {
+  console.log(scenes)
   useInterval(
     () => {
       if (queryResult?.refetch) {
@@ -69,7 +70,7 @@ export const Success = ({
   return (
     <>
       {scenes.map((scene) => {
-        const live = scene.averages?.live && !fourHoursLater(scene.createdAt)
+        const live = scene.averages?.live
         const highlighted = highlightedSceneId === scene.id
 
         return (

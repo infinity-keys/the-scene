@@ -22,6 +22,7 @@
     "src",
     "../.redwood/types/includes/all-*",
     "../.redwood/types/includes/api-*",
-    "../types"
+    "../types",
+    "../web/src/lib/dates.ts"
   ]
 }
