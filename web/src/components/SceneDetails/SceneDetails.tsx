@@ -1,45 +1,77 @@
-import { MapScene } from 'src/pages/FindPage/FindPage'
 import Button from 'src/components/Button/Button'
 import Avatar from 'boring-avatars'
 import MusicIcon from 'src/icons/MusicIcon'
 import NavigationIcon from 'src/icons/NavigationIcon'
+import { SceneInfo } from 'src/components/InfoCard/InfoCard'
+import ShareIcon from 'src/icons/ShareIcon'
+import { routes } from '@redwoodjs/router'
+import { toast } from '@redwoodjs/web/dist/toast'
 
 const SceneDetails = ({
   scene,
   previous,
 }: {
-  scene: MapScene
+  scene: SceneInfo
   previous: () => void
 }) => {
   return (
     <div>
       <div className="flex justify-center gap-2">
-        <div className="basis-1/2">
+        {scene.link && (
+          <div className="flex-1">
+            <Button fullWidth smHzPadding href={scene.link}>
+              <span className="flex items-center justify-center text-xs sm:text-sm">
+                <span className="mr-1 inline-block h-3 w-3 sm:h-5 sm:w-5">
+                  <MusicIcon />
+                </span>
+                Link
+              </span>
+            </Button>
+          </div>
+        )}
+
+        <div className="flex-1">
           <Button
             fullWidth
+            smHzPadding
+            onClick={() => {
+              const url = new URL(
+                routes.find({
+                  sceneId: scene.id,
+                  latitude: scene.latitude,
+                  longitude: scene.longitude,
+                  zoom: 15,
+                }),
+                window.location.origin
+              )
+              navigator.clipboard.writeText(url.toString())
+              toast('Scene copied to clipboard')
+            }}
+          >
+            <span className="flex items-center justify-center text-xs sm:text-sm">
+              <span className="mr-1 inline-block h-3 w-3 sm:h-5 sm:w-5">
+                <ShareIcon />
+              </span>
+              Share
+            </span>
+          </Button>
+        </div>
+
+        <div className="flex-1">
+          <Button
+            fullWidth
+            smHzPadding
             accent
             href={`http://www.google.com/maps/place/${scene.latitude},${scene.longitude}`}
           >
-            <span className="flex items-center justify-center">
-              <span className="mr-1 inline-block h-5 w-5">
+            <span className="flex items-center justify-center text-xs sm:text-sm">
+              <span className="mr-1 inline-block h-3 w-3 sm:h-5 sm:w-5">
                 <NavigationIcon />
               </span>
               Let's Go!
             </span>
           </Button>
         </div>
-        {scene.link && (
-          <div className="basis-1/2">
-            <Button fullWidth href={scene.link}>
-              <span className="flex items-center justify-center">
-                <span className="mr-1 inline-block h-5 w-5">
-                  <MusicIcon />
-                </span>
-                More Info
-              </span>
-            </Button>
-          </div>
-        )}
       </div>
 
       <div className="flex items-center justify-end gap-2 py-5 text-xs">
