@@ -3,6 +3,8 @@ import Map, { Marker } from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { useGeolocated } from 'react-geolocated'
 import { Scene } from 'types/graphql'
+import { useParams } from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
 
 import { MetaTags } from '@redwoodjs/web'
 import ScenesCell from 'src/components/ScenesCell'
@@ -24,7 +26,6 @@ export type MapBounds = {
 }
 
 const FindPage = () => {
-  const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null)
   const [bounds, setBounds] = useState<MapBounds | null>(null)
   const [showCarouselButton, setShowCarouselButton] = useState(false)
   const [showCarousel, setShowCarousel] = useState(false)
@@ -35,18 +36,26 @@ const FindPage = () => {
   })
   const mapRef = useRef<MapRef | null>(null)
   const { setHighlightedSceneId } = useMapData()
+  const { sceneId, latitude, longitude, zoom } = useParams()
 
   const handleMarkerFocus = useCallback(
     (scene: MapScene) => {
-      setViewState({
-        // Center map below pin to account for card
+      const data = {
         latitude: scene.latitude - 0.003,
         longitude: scene.longitude,
         zoom: 15,
-      })
-      setSelectedSceneId(scene.id)
+      }
+      setViewState(data)
+
+      navigate(
+        routes.find({
+          ...data,
+          sceneId: scene.id,
+        }),
+        { replace: true }
+      )
     },
-    [setViewState, setSelectedSceneId]
+    [setViewState]
   )
 
   // The user's current location
@@ -58,7 +67,15 @@ const FindPage = () => {
   })
 
   useEffect(() => {
-    if (coords) {
+    if (sceneId) {
+      setViewState({
+        zoom: parseFloat(zoom),
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+      })
+    }
+
+    if (coords && !sceneId) {
       setViewState((prev) => ({
         ...prev,
         latitude: coords.latitude,
@@ -66,6 +83,19 @@ const FindPage = () => {
       }))
     }
   }, [coords])
+
+  const handleSetBounds = () => {
+    const mapBounds = mapRef.current?.getMap().getBounds().toArray()
+    if (!mapBounds) {
+      return
+    }
+    const [[west, south], [east, north]] = mapBounds
+    setBounds({ north, south, east, west })
+  }
+
+  const removeParams = () => {
+    navigate(routes.find(), { replace: true })
+  }
 
   return (
     <div className="relative">
@@ -76,26 +106,20 @@ const FindPage = () => {
         ref={mapRef}
         reuseMaps
         dragRotate={false}
-        onMove={(e) => setViewState(e.viewState)}
-        // Close current event info when user drags map
-        onDragStart={() => {
-          setSelectedSceneId(null)
-          setHighlightedSceneId(null)
-          setShowCarousel(false)
-        }}
-        onMoveEnd={() => {
-          const mapBounds = mapRef.current?.getMap().getBounds().toArray()
-
-          if (!mapBounds) {
-            return
-          }
-          const [[west, south], [east, north]] = mapBounds
-          setBounds({ north, south, east, west })
-        }}
+        touchZoomRotate={false}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
         mapboxAccessToken={process.env.MAPBOX_PUBLIC_KEY}
+        onMove={(e) => setViewState(e.viewState)}
+        // Close current event info when user drags map
+        onDragStart={() => {
+          setHighlightedSceneId(null)
+          setShowCarousel(false)
+          removeParams()
+        }}
+        onLoad={handleSetBounds}
+        onMoveEnd={handleSetBounds}
       >
         {coords && (
           <Marker longitude={coords?.longitude} latitude={coords?.latitude}>
@@ -115,16 +139,13 @@ const FindPage = () => {
         )}
       </Map>
 
-      {selectedSceneId && (
+      {sceneId && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-6">
-          <SceneCell
-            id={selectedSceneId}
-            closeCard={() => setSelectedSceneId(null)}
-          />
+          <SceneCell id={sceneId} closeCard={() => removeParams()} />
         </div>
       )}
 
-      {bounds && showCarousel && !selectedSceneId && (
+      {bounds && showCarousel && !sceneId && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-lg -translate-x-1/2">
           <CarouselCell
             bounds={bounds}
@@ -136,9 +157,16 @@ const FindPage = () => {
         </div>
       )}
 
-      {!selectedSceneId && !showCarousel && showCarouselButton && (
+      {!sceneId && !showCarousel && showCarouselButton && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-[150px] -translate-x-1/2">
-          <Button accent selected onClick={() => setShowCarousel(true)}>
+          <Button
+            accent
+            selected
+            onClick={() => {
+              handleSetBounds()
+              setShowCarousel(true)
+            }}
+          >
             Show Scenes
           </Button>
         </div>

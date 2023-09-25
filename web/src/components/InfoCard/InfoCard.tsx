@@ -21,7 +21,7 @@ export enum ScreenProgress {
   DETAILS,
 }
 
-type SceneInfo = Pick<
+export type SceneInfo = Pick<
   Scene,
   | 'id'
   | 'createdAt'
@@ -137,6 +137,7 @@ const InfoCard = ({
                 <div className="flex gap-3 pt-4">
                   <Button
                     fullWidth
+                    smHzPadding
                     onClick={() => handleScreenProgress(ScreenProgress.DETAILS)}
                   >
                     + INFO
@@ -145,13 +146,14 @@ const InfoCard = ({
                   {isAuthenticated ? (
                     <Button
                       fullWidth
+                      smHzPadding
                       accent
                       onClick={() => handleScreenProgress(ScreenProgress.RATE)}
                     >
                       Rate This Scene
                     </Button>
                   ) : (
-                    <Button accent fullWidth onClick={() => logIn()}>
+                    <Button accent fullWidth smHzPadding onClick={logIn}>
                       Log in to Rate
                     </Button>
                   )}
