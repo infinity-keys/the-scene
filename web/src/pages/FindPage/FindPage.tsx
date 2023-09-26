@@ -40,6 +40,8 @@ const FindPage = () => {
 
   const handleMarkerFocus = useCallback(
     (scene: MapScene) => {
+      setShowCarousel(false)
+
       const data = {
         latitude: scene.latitude - 0.003,
         longitude: scene.longitude,
