@@ -84,9 +84,7 @@ const InfoCard = ({
             </div>
 
             <div className="flex w-full items-end justify-between">
-              {scene.averages?.live && !fourHoursLater(scene.createdAt) && (
-                <LiveTag />
-              )}
+              {scene.averages?.live && <LiveTag />}
 
               <div className="ml-auto">
                 {typeof crowded === 'boolean' && (

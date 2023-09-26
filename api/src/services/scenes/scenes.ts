@@ -1,6 +1,11 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql'
+import type {
+  QueryResolvers,
+  MutationResolvers,
+  SceneRelationResolvers,
+} from 'types/graphql'
 import { v2 as cloudinary } from 'cloudinary'
 import { db } from 'src/lib/db'
+import { fourHoursLater } from 'src/lib/dates'
 import { AuthenticationError } from '@redwoodjs/graphql-server'
 
 // Return "https" URLs by setting secure: true
@@ -112,7 +117,11 @@ export const Scene: SceneRelationResolvers = {
       vibe: typeof vibe === 'number' ? vibe >= 2.5 : null,
       crowded: typeof crowded === 'number' ? crowded >= 2.5 : null,
       // if there are no ratings, set show to live and handle the time checks in the front end
-      live: _count._all === 0 ? true : liveCount / _count._all >= 0.5,
+      live: fourHoursLater(root?.createdAt.toString())
+        ? false
+        : _count._all === 0
+        ? true
+        : liveCount / _count._all >= 0.5,
       totalRatings: _count._all,
     }
   },
