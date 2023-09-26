@@ -108,7 +108,6 @@ const FindPage = () => {
         ref={mapRef}
         reuseMaps
         dragRotate={false}
-        touchZoomRotate={false}
         mapLib={mapboxgl}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/tawnee-ik/cllv4qnri006601r6dx3t2hqh"
