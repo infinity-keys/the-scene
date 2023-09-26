@@ -14,7 +14,8 @@ import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
 import PartyEmoji from 'src/images/PartyEmoji.webp'
 import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
 import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
-import animationData from './packed.json'
+import noone from './no_one_yet.json'
+import zzz from './zzzzzz.json'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -57,7 +58,6 @@ const InfoCard = ({
   const defaultOptions = {
     loop: false,
     autoplay: true,
-    animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
@@ -74,7 +74,7 @@ const InfoCard = ({
 
   return (
     <div>
-      <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
+      <div className="relative w-full max-w-md animate-fade-in bg-slate-400 text-white shadow-lg">
         <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
         <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
@@ -87,9 +87,9 @@ const InfoCard = ({
           </button>
           <div
             className="flex min-h-[250px] flex-col items-end justify-between gap-2 bg-cover bg-center p-3 text-xs font-normal"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .0), rgba(0, 0, 0, .80)), url(https://res.cloudinary.com/infinity-keys/image/upload/c_fill,h_500,w_500/${scene.coverImageId})`,
-            }}
+            // style={{
+            //   backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, .0), rgba(0, 0, 0, .80)), url(https://res.cloudinary.com/infinity-keys/image/upload/c_fill,h_500,w_500/${scene.coverImageId})`,
+            // }}
           >
             <div className="px-4 text-center md:px-8">
               <PaperTitle text={scene.title} withAnimation />
@@ -102,39 +102,59 @@ const InfoCard = ({
 
               <div className="ml-auto">
                 {typeof crowded === 'boolean' && (
-                  <div className="mb-4 flex items-center px-3 text-right">
-                    <p className="rotate-[1.2deg] text-sm font-bold uppercase">
-                      {/* {crowded ? 'Packed place' : 'Kinda Empty'} */}
-                    </p>
-                    <div className="-translate-y-2 translate-x-4 text-2xl">
-                      {crowded ? (
-                        <Lottie
-                          options={defaultOptions}
-                          height={60}
-                          width={150}
-                          isStopped={isStopped}
-                          isPaused={isPaused}
-                        />
-                      ) : (
-                        <img className="block h-7 w-7" src={EmptyFaceEmoji} />
-                      )}
-                    </div>
-                  </div>
+                  <>
+                    {crowded ? (
+                      <Lottie
+                        options={{
+                          ...defaultOptions,
+                          animationData: noone,
+                        }}
+                        height={60}
+                        width={170}
+                        isStopped={isStopped}
+                        isPaused={isPaused}
+                      />
+                    ) : (
+                      <Lottie
+                        options={{
+                          ...defaultOptions,
+                          animationData: noone,
+                        }}
+                        height={60}
+                        width={170}
+                        isStopped={isStopped}
+                        isPaused={isPaused}
+                      />
+                    )}
+                  </>
                 )}
 
                 {typeof vibe === 'boolean' && (
-                  <div className="flex items-center bg-black px-3 text-right">
-                    <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
-                      {vibe ? 'Great show' : 'So so show'}
-                    </p>
-                    <div className="-translate-y-2 translate-x-4 text-2xl">
-                      {vibe ? (
-                        <img className="block h-7 w-7" src={StarryEyesEmoji} />
-                      ) : (
-                        <img className="block h-7 w-7" src={SnoozeEmoji} />
-                      )}
-                    </div>
-                  </div>
+                  <>
+                    {vibe ? (
+                      <Lottie
+                        options={{
+                          ...defaultOptions,
+                          animationData: zzz,
+                        }}
+                        height={60}
+                        width={170}
+                        isStopped={isStopped}
+                        isPaused={isPaused}
+                      />
+                    ) : (
+                      <Lottie
+                        options={{
+                          ...defaultOptions,
+                          animationData: zzz,
+                        }}
+                        height={60}
+                        width={170}
+                        isStopped={isStopped}
+                        isPaused={isPaused}
+                      />
+                    )}
+                  </>
                 )}
               </div>
             </div>
