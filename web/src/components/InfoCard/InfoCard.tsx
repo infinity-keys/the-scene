@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fourHoursLater } from 'src/lib/dates'
 import { useAuth } from 'src/auth'
-
+import Lottie from 'react-lottie'
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
@@ -14,6 +14,7 @@ import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
 import PartyEmoji from 'src/images/PartyEmoji.webp'
 import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
 import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
+import animationData from './packed.json'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -49,6 +50,18 @@ const InfoCard = ({
   const [screenProgress, setScreenProgress] = useState<ScreenProgress>(
     ScreenProgress.OVERVIEW
   )
+
+  const [isStopped, setIsStopped] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
 
   const { crowded, vibe, totalRatings } = scene.averages || {}
 
@@ -89,13 +102,19 @@ const InfoCard = ({
 
               <div className="ml-auto">
                 {typeof crowded === 'boolean' && (
-                  <div className="mb-4 flex items-center bg-black px-3 text-right">
+                  <div className="mb-4 flex items-center px-3 text-right">
                     <p className="rotate-[1.2deg] text-sm font-bold uppercase">
-                      {crowded ? 'Packed place' : 'Kinda Empty'}
+                      {/* {crowded ? 'Packed place' : 'Kinda Empty'} */}
                     </p>
                     <div className="-translate-y-2 translate-x-4 text-2xl">
                       {crowded ? (
-                        <img className="block h-7 w-7" src={PartyEmoji} />
+                        <Lottie
+                          options={defaultOptions}
+                          height={60}
+                          width={150}
+                          isStopped={isStopped}
+                          isPaused={isPaused}
+                        />
                       ) : (
                         <img className="block h-7 w-7" src={EmptyFaceEmoji} />
                       )}

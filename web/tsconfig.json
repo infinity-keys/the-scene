@@ -9,6 +9,7 @@
     "baseUrl": "./",
     "skipLibCheck": false,
     "strict": true,
+    "resolveJsonModule": true,
     "rootDirs": [
       "./src",
       "../.redwood/types/mirror/web/src",
