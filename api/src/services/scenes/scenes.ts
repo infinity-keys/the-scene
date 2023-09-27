@@ -114,8 +114,8 @@ export const Scene: SceneRelationResolvers = {
     })
 
     return {
-      vibe: typeof vibe === 'number' ? vibe >= 2.5 : null,
-      crowded: typeof crowded === 'number' ? crowded >= 2.5 : null,
+      vibe: typeof vibe === 'number' ? Math.round(vibe) : null,
+      crowded: typeof crowded === 'number' ? Math.round(crowded) : null,
       // if there are no ratings, set show to live and handle the time checks in the front end
       live: fourHoursLater(root?.createdAt.toString())
         ? false

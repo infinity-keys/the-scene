@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { useAuth } from 'src/auth'
-
+import Lottie from 'react-lottie'
 import Button from 'src/components/Button/Button'
 import PaperTitle from 'src/components/PaperTitle/PaperTitle'
 import SceneDetails from 'src/components/SceneDetails/SceneDetails'
@@ -9,11 +10,7 @@ import LiveTag from 'src/components/LiveTag/LiveTag'
 import CloseIcon from 'src/icons/CloseIcon'
 
 import { Scene, User } from 'types/graphql'
-import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
-import PartyEmoji from 'src/images/PartyEmoji.webp'
-import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
-import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
-import { motion } from 'framer-motion'
+import { crowdedLottieLookup, vibeCheck } from 'src/lib/lottieLookup'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -37,6 +34,14 @@ export type SceneInfo = Pick<
   user?: Pick<User, 'username' | 'avatar'> | null
 }
 
+const lottieOptions = {
+  loop: false,
+  autoplay: false,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+}
+
 const InfoCard = ({
   scene,
   setScreenStatus,
@@ -51,6 +56,13 @@ const InfoCard = ({
     ScreenProgress.OVERVIEW
   )
 
+  const [currentCrowdRating, setCurrentCrowdRating] = useState<number | null>(
+    null
+  )
+  const [currentVibeRating, setCurrentVibeRating] = useState<number | null>(
+    null
+  )
+
   const { crowded, vibe, totalRatings } = scene.averages || {}
 
   const handleScreenProgress = (currentScreen: ScreenProgress) => {
@@ -59,6 +71,14 @@ const InfoCard = ({
       setScreenStatus(currentScreen)
     }
   }
+
+  const crowdBeingRated =
+    typeof currentCrowdRating === 'number' &&
+    screenProgress === ScreenProgress.RATE
+
+  const vibeBeingRated =
+    typeof currentVibeRating === 'number' &&
+    screenProgress === ScreenProgress.RATE
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -87,34 +107,52 @@ const InfoCard = ({
               {scene.averages?.live && <LiveTag />}
 
               <div className="ml-auto">
-                {typeof crowded === 'boolean' && (
-                  <div className="mb-4 flex items-center bg-black px-3 text-right">
-                    <p className="rotate-[1.2deg] text-sm font-bold uppercase">
-                      {crowded ? 'Packed place' : 'Kinda Empty'}
-                    </p>
-                    <div className="-translate-y-2 translate-x-4 text-2xl">
-                      {crowded ? (
-                        <img className="block h-7 w-7" src={PartyEmoji} />
-                      ) : (
-                        <img className="block h-7 w-7" src={EmptyFaceEmoji} />
-                      )}
-                    </div>
-                  </div>
+                {typeof vibe === 'number' && !vibeBeingRated && (
+                  <Lottie
+                    options={{
+                      ...lottieOptions,
+                      animationData: vibeCheck[vibe],
+                    }}
+                    height={60}
+                    width={170}
+                    isStopped={true}
+                  />
                 )}
 
-                {typeof vibe === 'boolean' && (
-                  <div className="flex items-center bg-black px-3 text-right">
-                    <p className="-rotate-[1.8deg] text-sm font-bold uppercase">
-                      {vibe ? 'Great show' : 'So so show'}
-                    </p>
-                    <div className="-translate-y-2 translate-x-4 text-2xl">
-                      {vibe ? (
-                        <img className="block h-7 w-7" src={StarryEyesEmoji} />
-                      ) : (
-                        <img className="block h-7 w-7" src={SnoozeEmoji} />
-                      )}
-                    </div>
-                  </div>
+                {typeof currentVibeRating === 'number' && vibeBeingRated && (
+                  <Lottie
+                    options={{
+                      ...lottieOptions,
+                      animationData: vibeCheck[currentVibeRating],
+                    }}
+                    height={60}
+                    width={170}
+                    isStopped={false}
+                  />
+                )}
+
+                {typeof crowded === 'number' && !crowdBeingRated && (
+                  <Lottie
+                    options={{
+                      ...lottieOptions,
+                      animationData: crowdedLottieLookup[crowded],
+                    }}
+                    height={60}
+                    width={170}
+                    isStopped={true}
+                  />
+                )}
+
+                {typeof currentCrowdRating === 'number' && crowdBeingRated && (
+                  <Lottie
+                    options={{
+                      ...lottieOptions,
+                      animationData: crowdedLottieLookup[currentCrowdRating],
+                    }}
+                    height={60}
+                    width={170}
+                    isStopped={false}
+                  />
                 )}
               </div>
             </div>
@@ -167,6 +205,8 @@ const InfoCard = ({
                   handleScreenProgress(ScreenProgress.OVERVIEW)
                 }
                 currentUserRating={scene.currentUserRating?.[0] || undefined}
+                setCurrentCrowdRating={setCurrentCrowdRating}
+                setCurrentVibeRating={setCurrentVibeRating}
               />
             )}
 

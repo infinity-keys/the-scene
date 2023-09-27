@@ -17,8 +17,8 @@ export const schema = gql`
   }
 
   type SceneAverages {
-    vibe: Boolean
-    crowded: Boolean
+    vibe: Int
+    crowded: Int
     live: Boolean
     totalRatings: Int
   }
