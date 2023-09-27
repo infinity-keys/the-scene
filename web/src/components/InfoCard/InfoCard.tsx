@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { fourHoursLater } from 'src/lib/dates'
 import { useAuth } from 'src/auth'
 
 import Button from 'src/components/Button/Button'
@@ -14,6 +13,7 @@ import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
 import PartyEmoji from 'src/images/PartyEmoji.webp'
 import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
 import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
+import { motion } from 'framer-motion'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -61,8 +61,8 @@ const InfoCard = ({
   }
 
   return (
-    <div>
-      <div className="relative w-full max-w-md animate-fade-in text-white shadow-lg">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <div className="relative w-full max-w-md text-white shadow-lg">
         <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
         <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
@@ -179,7 +179,7 @@ const InfoCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

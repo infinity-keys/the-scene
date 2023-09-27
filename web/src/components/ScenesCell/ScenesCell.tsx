@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import clsx from 'clsx'
 import { Marker } from 'react-map-gl'
-import { fourHoursLater } from 'src/lib/dates'
 import { useInterval } from 'src/hooks/useInterval'
 import { useMapData } from 'src/providers/mapData'
 import { MapScene } from 'src/pages/FindPage/FindPage'
