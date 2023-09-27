@@ -14,6 +14,7 @@ import Button from 'src/components/Button/Button'
 import { useMapData } from 'src/providers/mapData'
 
 import type { MapRef } from 'react-map-gl'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -23,6 +24,12 @@ export type MapBounds = {
   south: number
   east: number
   west: number
+}
+
+const variants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
 }
 
 const FindPage = () => {
@@ -139,23 +146,41 @@ const FindPage = () => {
         )}
       </Map>
 
-      {sceneId && (
-        <div className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-6">
-          <SceneCell id={sceneId} closeCard={() => removeParams()} />
-        </div>
-      )}
+      <AnimatePresence>
+        {sceneId && (
+          <motion.div
+            key="scene"
+            initial={false}
+            animate="visible"
+            exit="exit"
+            variants={variants}
+            className="absolute bottom-16 left-1/2 w-full max-w-md -translate-x-1/2 pl-2 pr-6"
+          >
+            <SceneCell id={sceneId} closeCard={() => removeParams()} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {bounds && showCarousel && !sceneId && (
-        <div className="absolute bottom-16 left-1/2 w-full max-w-lg -translate-x-1/2">
-          <CarouselCell
-            bounds={bounds}
-            closeCard={() => {
-              setShowCarousel(false)
-              setHighlightedSceneId(null)
-            }}
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {bounds && showCarousel && !sceneId && (
+          <motion.div
+            key="carousel"
+            initial={false}
+            animate="visible"
+            exit="exit"
+            variants={variants}
+            className="absolute bottom-16 left-1/2 w-full max-w-lg -translate-x-1/2"
+          >
+            <CarouselCell
+              bounds={bounds}
+              closeCard={() => {
+                setShowCarousel(false)
+                setHighlightedSceneId(null)
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {!sceneId && !showCarousel && showCarouselButton && (
         <div className="absolute bottom-16 left-1/2 w-full max-w-[150px] -translate-x-1/2">
