@@ -13,7 +13,7 @@ const RatingSlider = ({
       x={value}
       onChange={onChange}
       xmax={5}
-      xmin={0}
+      xmin={1}
       xstep={1}
       styles={{
         track: {
