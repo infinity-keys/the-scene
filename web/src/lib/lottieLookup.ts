@@ -18,7 +18,7 @@ export const crowdedLottieLookup: Record<number, object> = {
   5: crowded5,
 }
 
-export const vibeLottieLookup: Record<number, object> = {
+export const vibeCheck: Record<number, object> = {
   1: vibe1,
   2: vibe2,
   3: vibe3,

@@ -10,7 +10,7 @@ import LiveTag from 'src/components/LiveTag/LiveTag'
 import CloseIcon from 'src/icons/CloseIcon'
 
 import { Scene, User } from 'types/graphql'
-import { crowdedLottieLookup, vibeLottieLookup } from 'src/lib/lottieLookup'
+import { crowdedLottieLookup, vibeCheck } from 'src/lib/lottieLookup'
 
 export enum ScreenProgress {
   OVERVIEW,
@@ -33,6 +33,14 @@ type SceneInfo = Pick<
   user?: Pick<User, 'username' | 'avatar'> | null
 }
 
+const lottieOptions = {
+  loop: false,
+  autoplay: false,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+}
+
 const InfoCard = ({
   scene,
   setScreenStatus,
@@ -47,16 +55,8 @@ const InfoCard = ({
     ScreenProgress.OVERVIEW
   )
 
-  const [isStopped, setIsStopped] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-
-  const defaultOptions = {
-    loop: false,
-    autoplay: true,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  }
+  const [isCrowdPlaying, setIsCrowdPlaying] = useState(false)
+  const [isVibePlaying, setIsVibePlaying] = useState(false)
 
   const { crowded, vibe, totalRatings } = scene.averages || {}
   console.log('crowded: ', crowded)
@@ -98,29 +98,27 @@ const InfoCard = ({
               )}
 
               <div className="ml-auto">
+                {typeof vibe === 'number' && (
+                  <Lottie
+                    options={{
+                      ...lottieOptions,
+                      animationData: vibeCheck[vibe],
+                    }}
+                    height={60}
+                    width={170}
+                    isStopped={!isVibePlaying}
+                  />
+                )}
+
                 {typeof crowded === 'number' && (
                   <Lottie
                     options={{
-                      ...defaultOptions,
+                      ...lottieOptions,
                       animationData: crowdedLottieLookup[crowded],
                     }}
                     height={60}
                     width={170}
-                    isStopped={isStopped}
-                    isPaused={isPaused}
-                  />
-                )}
-
-                {typeof vibe === 'number' && (
-                  <Lottie
-                    options={{
-                      ...defaultOptions,
-                      animationData: vibeLottieLookup[vibe],
-                    }}
-                    height={60}
-                    width={170}
-                    isStopped={isStopped}
-                    isPaused={isPaused}
+                    isStopped={!isCrowdPlaying}
                   />
                 )}
               </div>
