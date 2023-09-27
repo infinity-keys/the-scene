@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fourHoursLater } from 'src/lib/dates'
+import { motion } from 'framer-motion'
 import { useAuth } from 'src/auth'
 import Lottie from 'react-lottie'
 import Button from 'src/components/Button/Button'
@@ -81,8 +81,8 @@ const InfoCard = ({
     screenProgress === ScreenProgress.RATE
 
   return (
-    <div>
-      <div className="relative w-full max-w-md animate-fade-in bg-slate-400 text-white shadow-lg">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <div className="relative w-full max-w-md text-white shadow-lg">
         <div className="card-paper-shadow absolute inset-0 translate-x-[6px] translate-y-[7px] rotate-[.666deg] bg-neutral-300" />
         <div className="card-paper-shadow absolute inset-0 translate-x-[7.5px] translate-y-[7px] -rotate-[.9deg] bg-neutral-300" />
 
@@ -219,7 +219,7 @@ const InfoCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
