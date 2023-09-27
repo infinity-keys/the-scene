@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAuth } from 'src/auth'
 import Lottie from 'react-lottie'
@@ -56,12 +56,17 @@ const InfoCard = ({
     ScreenProgress.OVERVIEW
   )
 
-  const [currentCrowdRating, setCurrentCrowdRating] = useState<number | null>(
-    null
+  const [currentCrowdRating, setCurrentCrowdRating] = useState(
+    scene.currentUserRating?.[0]?.crowded || 5
   )
-  const [currentVibeRating, setCurrentVibeRating] = useState<number | null>(
-    null
+  const [currentVibeRating, setCurrentVibeRating] = useState(
+    scene.currentUserRating?.[0]?.vibe || 5
   )
+
+  const [vibeStopped, setVibeStopped] = useState(true)
+  const [crowdStopped, setCrowdStopped] = useState(true)
+  const [vibeAnimEnabled, setVibeAnimEnabled] = useState(false)
+  const [crowdAnimEnabled, setCrowdAnimEnabled] = useState(false)
 
   const { crowded, vibe, totalRatings } = scene.averages || {}
 
@@ -72,13 +77,17 @@ const InfoCard = ({
     }
   }
 
-  const crowdBeingRated =
-    typeof currentCrowdRating === 'number' &&
-    screenProgress === ScreenProgress.RATE
+  useEffect(() => {
+    if (vibeAnimEnabled) {
+      setVibeStopped(false)
+    }
+  }, [currentVibeRating])
 
-  const vibeBeingRated =
-    typeof currentVibeRating === 'number' &&
-    screenProgress === ScreenProgress.RATE
+  useEffect(() => {
+    if (crowdAnimEnabled) {
+      setCrowdStopped(false)
+    }
+  }, [currentCrowdRating])
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -107,53 +116,69 @@ const InfoCard = ({
               {scene.averages?.live && <LiveTag />}
 
               <div className="ml-auto">
-                {typeof vibe === 'number' && !vibeBeingRated && (
-                  <Lottie
-                    options={{
-                      ...lottieOptions,
-                      animationData: vibeCheck[vibe],
-                    }}
-                    height={60}
-                    width={170}
-                    isStopped={true}
-                  />
-                )}
+                {typeof vibe === 'number' &&
+                  screenProgress !== ScreenProgress.RATE && (
+                    <Lottie
+                      options={{
+                        ...lottieOptions,
+                        animationData: vibeCheck[vibe],
+                      }}
+                      height={60}
+                      width={170}
+                      isStopped={true}
+                    />
+                  )}
 
-                {typeof currentVibeRating === 'number' && vibeBeingRated && (
-                  <Lottie
-                    options={{
-                      ...lottieOptions,
-                      animationData: vibeCheck[currentVibeRating],
-                    }}
-                    height={60}
-                    width={170}
-                    isStopped={false}
-                  />
-                )}
+                {typeof currentVibeRating === 'number' &&
+                  screenProgress === ScreenProgress.RATE && (
+                    <Lottie
+                      options={{
+                        ...lottieOptions,
+                        animationData: vibeCheck[currentVibeRating],
+                      }}
+                      height={60}
+                      width={170}
+                      isStopped={vibeStopped}
+                      eventListeners={[
+                        {
+                          eventName: 'complete',
+                          callback: () => setVibeStopped(true),
+                        },
+                      ]}
+                    />
+                  )}
 
-                {typeof crowded === 'number' && !crowdBeingRated && (
-                  <Lottie
-                    options={{
-                      ...lottieOptions,
-                      animationData: crowdedLottieLookup[crowded],
-                    }}
-                    height={60}
-                    width={170}
-                    isStopped={true}
-                  />
-                )}
+                {typeof crowded === 'number' &&
+                  screenProgress !== ScreenProgress.RATE && (
+                    <Lottie
+                      options={{
+                        ...lottieOptions,
+                        animationData: crowdedLottieLookup[crowded],
+                      }}
+                      height={60}
+                      width={170}
+                      isStopped={true}
+                    />
+                  )}
 
-                {typeof currentCrowdRating === 'number' && crowdBeingRated && (
-                  <Lottie
-                    options={{
-                      ...lottieOptions,
-                      animationData: crowdedLottieLookup[currentCrowdRating],
-                    }}
-                    height={60}
-                    width={170}
-                    isStopped={false}
-                  />
-                )}
+                {typeof currentCrowdRating === 'number' &&
+                  screenProgress === ScreenProgress.RATE && (
+                    <Lottie
+                      options={{
+                        ...lottieOptions,
+                        animationData: crowdedLottieLookup[currentCrowdRating],
+                      }}
+                      height={60}
+                      width={170}
+                      isStopped={crowdStopped}
+                      eventListeners={[
+                        {
+                          eventName: 'complete',
+                          callback: () => setCrowdStopped(true),
+                        },
+                      ]}
+                    />
+                  )}
               </div>
             </div>
           </div>
@@ -204,9 +229,12 @@ const InfoCard = ({
                 onRateSuccess={() =>
                   handleScreenProgress(ScreenProgress.OVERVIEW)
                 }
-                currentUserRating={scene.currentUserRating?.[0] || undefined}
-                setCurrentCrowdRating={setCurrentCrowdRating}
-                setCurrentVibeRating={setCurrentVibeRating}
+                vibe={currentVibeRating}
+                crowded={currentCrowdRating}
+                setCrowd={setCurrentCrowdRating}
+                setVibe={setCurrentVibeRating}
+                setVibeAnimEnabled={setVibeAnimEnabled}
+                setCrowdAnimEnabled={setCrowdAnimEnabled}
               />
             )}
 

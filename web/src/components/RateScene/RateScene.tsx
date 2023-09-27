@@ -29,34 +29,24 @@ const RateScene = ({
   sceneId,
   previous,
   onRateSuccess,
-  currentUserRating,
-  setCurrentCrowdRating,
-  setCurrentVibeRating,
+  vibe,
+  crowded,
+  setCrowd,
+  setVibe,
+  setVibeAnimEnabled,
+  setCrowdAnimEnabled,
 }: {
   sceneId: string
+  vibe: number
+  crowded: number
   previous: () => void
   onRateSuccess: () => void
-  setCurrentCrowdRating: (n: number) => void
-  setCurrentVibeRating: (n: number) => void
-  currentUserRating?: {
-    id: string
-    live: boolean
-    vibe: number
-    crowded: number
-  }
+  setCrowd: (n: number) => void
+  setVibe: (n: number) => void
+  setVibeAnimEnabled: (b: boolean) => void
+  setCrowdAnimEnabled: (b: boolean) => void
 }) => {
   const [live, setLive] = useState<boolean | null>(null)
-  const [vibe, setVibe] = useState({
-    x: typeof currentUserRating?.vibe === 'number' ? currentUserRating.vibe : 5,
-    y: 0,
-  })
-  const [crowded, setCrowded] = useState({
-    x:
-      typeof currentUserRating?.crowded === 'number'
-        ? currentUserRating.crowded
-        : 5,
-    y: 0,
-  })
 
   const [rateScene, { loading }] = useMutation<
     RateSceneMutation,
@@ -85,8 +75,8 @@ const RateScene = ({
         sceneId: sceneId,
         input: {
           live,
-          vibe: vibe.x,
-          crowded: crowded.x,
+          vibe,
+          crowded,
         },
       },
     })
@@ -118,10 +108,10 @@ const RateScene = ({
           </p>
           <RatingSlider
             onChange={(e) => {
-              setVibe(e)
-              setCurrentVibeRating(e.x)
+              setVibe(e.x)
             }}
-            value={vibe.x}
+            onDragStart={() => setVibeAnimEnabled(true)}
+            value={vibe}
           />
           <p className="text-2xl">
             <img className="block h-7 w-7" src={vibe5} />
@@ -137,10 +127,10 @@ const RateScene = ({
           </p>
           <RatingSlider
             onChange={(e) => {
-              setCrowded(e)
-              setCurrentCrowdRating(e.x)
+              setCrowd(e.x)
             }}
-            value={crowded.x}
+            onDragStart={() => setCrowdAnimEnabled(true)}
+            value={crowded}
           />
           <p className="text-2xl">
             <img className="block h-7 w-7" src={crowded5} />

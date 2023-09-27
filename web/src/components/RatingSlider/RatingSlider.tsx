@@ -3,15 +3,18 @@ import Slider from 'react-input-slider'
 const RatingSlider = ({
   onChange,
   value,
+  onDragStart,
 }: {
   value: number
   onChange: (values: { x: number; y: number }) => void
+  onDragStart: () => void
 }) => {
   return (
     <Slider
       axis="x"
       x={value}
       onChange={onChange}
+      onDragStart={onDragStart}
       xmax={5}
       xmin={1}
       xstep={1}
