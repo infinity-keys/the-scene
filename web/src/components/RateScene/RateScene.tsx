@@ -9,10 +9,10 @@ import Button from 'src/components/Button/Button'
 import RatingSlider from 'src/components/RatingSlider/RatingSlider'
 import clsx from 'clsx'
 
-import EmptyFaceEmoji from 'src/images/EmptyFaceEmoji.webp'
-import PartyEmoji from 'src/images/PartyEmoji.webp'
-import SnoozeEmoji from 'src/images/SnoozeEmoji.webp'
-import StarryEyesEmoji from 'src/images/StarryEyesEmoji.webp'
+import crowded1 from 'src/images/1_crowded.webp'
+import crowded5 from 'src/images/5_crowded.webp'
+import vibe1 from 'src/images/1_vibe.webp'
+import vibe5 from 'src/images/5_vibe.webp'
 
 const RATE_SCENE_MUTATION = gql`
   mutation RateSceneMutation(
@@ -30,10 +30,14 @@ const RateScene = ({
   previous,
   onRateSuccess,
   currentUserRating,
+  setCurrentCrowdRating,
+  setCurrentVibeRating,
 }: {
   sceneId: string
   previous: () => void
   onRateSuccess: () => void
+  setCurrentCrowdRating: (n: number) => void
+  setCurrentVibeRating: (n: number) => void
   currentUserRating?: {
     id: string
     live: boolean
@@ -110,11 +114,17 @@ const RateScene = ({
         <p>How is the show?</p>
         <div className="mt-2 flex items-center gap-4">
           <p className="text-2xl">
-            <img className="block h-7 w-7" src={SnoozeEmoji} />
+            <img className="block h-7 w-7" src={vibe1} />
           </p>
-          <RatingSlider onChange={setVibe} value={vibe.x} />
+          <RatingSlider
+            onChange={(e) => {
+              setVibe(e)
+              setCurrentVibeRating(e.x)
+            }}
+            value={vibe.x}
+          />
           <p className="text-2xl">
-            <img className="block h-7 w-7" src={StarryEyesEmoji} />
+            <img className="block h-7 w-7" src={vibe5} />
           </p>
         </div>
       </div>
@@ -123,11 +133,17 @@ const RateScene = ({
         <p>Is it packed?</p>
         <div className="mt-2 flex items-center gap-4">
           <p className="text-2xl">
-            <img className="block h-7 w-7" src={EmptyFaceEmoji} />
+            <img className="block h-7 w-7" src={crowded1} />
           </p>
-          <RatingSlider onChange={setCrowded} value={crowded.x} />
+          <RatingSlider
+            onChange={(e) => {
+              setCrowded(e)
+              setCurrentCrowdRating(e.x)
+            }}
+            value={crowded.x}
+          />
           <p className="text-2xl">
-            <img className="block h-7 w-7" src={PartyEmoji} />
+            <img className="block h-7 w-7" src={crowded5} />
           </p>
         </div>
       </div>
