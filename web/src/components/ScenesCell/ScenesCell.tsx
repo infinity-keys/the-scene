@@ -69,7 +69,7 @@ export const Success = ({
   return (
     <>
       {scenes.map((scene) => {
-        const live = scene.averages?.live && !fourHoursLater(scene.createdAt)
+        const live = scene.averages?.live
         const highlighted = highlightedSceneId === scene.id
 
         return (

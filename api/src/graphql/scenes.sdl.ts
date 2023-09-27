@@ -13,6 +13,7 @@ export const schema = gql`
     user: User
     userId: String
     averages: SceneAverages
+    currentUserRating: [SceneRating]
   }
 
   type SceneAverages {

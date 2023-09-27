@@ -6,6 +6,7 @@ interface ButtonProps extends PropsWithChildren {
   to?: string
   href?: string
   fullWidth?: boolean
+  smHzPadding?: boolean
   selected?: boolean
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
@@ -20,12 +21,13 @@ const Button = ({
   onClick,
   type,
   accent = false,
+  smHzPadding = false,
   fullWidth = false,
   selected = false,
   disabled = false,
 }: ButtonProps) => {
   const classes = clsx(
-    "button-text-shadow border-2 bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white inline-block text-center px-4 py-2 bg-[url('/images/static.webp')] uppercase font-bold text-sm relative transition-transform transform hover:scale-105 active:scale-90",
+    "button-text-shadow border-2 bg-blend-lighten bg-cover hover:bg-accent/30 hover:border-accent transition-colors text-white inline-block text-center py-2 bg-[url('/images/static.webp')] uppercase font-bold text-sm relative transition-transform transform hover:scale-105 active:scale-90",
     // Width
     { 'w-full': fullWidth },
     // Borders
@@ -36,7 +38,9 @@ const Button = ({
     // Disabled Button
     {
       'hover:bg-transparent opacity-50': disabled,
-    }
+    },
+    { 'px-4': !smHzPadding },
+    { 'px-2': smHzPadding }
   )
 
   if (to) {

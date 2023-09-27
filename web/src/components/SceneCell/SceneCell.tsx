@@ -19,6 +19,12 @@ export const QUERY = gql`
         avatar
         username
       }
+      currentUserRating {
+        id
+        live
+        vibe
+        crowded
+      }
       averages {
         vibe
         crowded
