@@ -29,31 +29,24 @@ const RateScene = ({
   sceneId,
   previous,
   onRateSuccess,
-  currentUserRating,
-  setCurrentCrowdRating,
-  setCurrentVibeRating,
+  vibe,
+  crowded,
+  setCrowd,
+  setVibe,
+  setVibeAnimEnabled,
+  setCrowdAnimEnabled,
 }: {
   sceneId: string
+  vibe: number
+  crowded: number
   previous: () => void
   onRateSuccess: () => void
-  setCurrentCrowdRating: (n: number) => void
-  setCurrentVibeRating: (n: number) => void
-  currentUserRating?: {
-    id: string
-    live: boolean
-    vibe: number
-    crowded: number
-  }
+  setCrowd: (n: number) => void
+  setVibe: (n: number) => void
+  setVibeAnimEnabled: (b: boolean) => void
+  setCrowdAnimEnabled: (b: boolean) => void
 }) => {
   const [live, setLive] = useState<boolean | null>(null)
-  const [vibe, setVibe] = useState(
-    typeof currentUserRating?.vibe === 'number' ? currentUserRating.vibe : 5
-  )
-  const [crowded, setCrowded] = useState(
-    typeof currentUserRating?.crowded === 'number'
-      ? currentUserRating.crowded
-      : 5
-  )
 
   const [rateScene, { loading }] = useMutation<
     RateSceneMutation,
@@ -116,8 +109,8 @@ const RateScene = ({
           <RatingSlider
             onChange={(e) => {
               setVibe(e.x)
-              setCurrentVibeRating(e.x)
             }}
+            onDragStart={() => setVibeAnimEnabled(true)}
             value={vibe}
           />
           <p className="text-2xl">
@@ -134,9 +127,9 @@ const RateScene = ({
           </p>
           <RatingSlider
             onChange={(e) => {
-              setCrowded(e.x)
-              setCurrentCrowdRating(e.x)
+              setCrowd(e.x)
             }}
+            onDragStart={() => setCrowdAnimEnabled(true)}
             value={crowded}
           />
           <p className="text-2xl">

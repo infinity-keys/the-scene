@@ -65,6 +65,8 @@ const InfoCard = ({
 
   const [vibeStopped, setVibeStopped] = useState(true)
   const [crowdStopped, setCrowdStopped] = useState(true)
+  const [vibeAnimEnabled, setVibeAnimEnabled] = useState(false)
+  const [crowdAnimEnabled, setCrowdAnimEnabled] = useState(false)
 
   const { crowded, vibe, totalRatings } = scene.averages || {}
 
@@ -76,11 +78,15 @@ const InfoCard = ({
   }
 
   useEffect(() => {
-    setVibeStopped(false)
+    if (vibeAnimEnabled) {
+      setVibeStopped(false)
+    }
   }, [currentVibeRating])
 
   useEffect(() => {
-    setCrowdStopped(false)
+    if (crowdAnimEnabled) {
+      setCrowdStopped(false)
+    }
   }, [currentCrowdRating])
 
   return (
@@ -223,9 +229,12 @@ const InfoCard = ({
                 onRateSuccess={() =>
                   handleScreenProgress(ScreenProgress.OVERVIEW)
                 }
-                currentUserRating={scene.currentUserRating?.[0] || undefined}
-                setCurrentCrowdRating={setCurrentCrowdRating}
-                setCurrentVibeRating={setCurrentVibeRating}
+                vibe={currentVibeRating}
+                crowded={currentCrowdRating}
+                setCrowd={setCurrentCrowdRating}
+                setVibe={setCurrentVibeRating}
+                setVibeAnimEnabled={setVibeAnimEnabled}
+                setCrowdAnimEnabled={setCrowdAnimEnabled}
               />
             )}
 
