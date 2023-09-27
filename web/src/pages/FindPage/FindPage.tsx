@@ -119,7 +119,10 @@ const FindPage = () => {
           setShowCarousel(false)
           removeParams()
         }}
-        onLoad={handleSetBounds}
+        onLoad={() => {
+          handleSetBounds()
+          mapRef.current?.getMap().touchZoomRotate.disableRotation()
+        }}
         onMoveEnd={handleSetBounds}
       >
         {coords && (
