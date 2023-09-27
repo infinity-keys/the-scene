@@ -7,7 +7,6 @@ import { motion, Variants } from 'framer-motion'
 const variants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
-  exit: { opacity: 0 },
 }
 
 const HomePage = () => {
@@ -18,7 +17,6 @@ const HomePage = () => {
         key="homepage"
         initial="hidden"
         animate="visible"
-        exit="exit"
         variants={variants}
         className="lg:lp-0 mx-auto flex min-h-screen w-full max-w-md flex-col gap-6 p-4 pt-24 lg:justify-center"
       >
