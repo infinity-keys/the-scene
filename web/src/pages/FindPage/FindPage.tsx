@@ -37,9 +37,9 @@ const FindPage = () => {
   const [showCarouselButton, setShowCarouselButton] = useState(false)
   const [showCarousel, setShowCarousel] = useState(false)
   const [viewState, setViewState] = useState({
-    latitude: 37.8,
-    longitude: -122.4,
-    zoom: 15,
+    latitude: 42.44303061850681,
+    longitude: -123.29989604461612,
+    zoom: 10,
   })
   const mapRef = useRef<MapRef | null>(null)
   const { setHighlightedSceneId } = useMapData()
