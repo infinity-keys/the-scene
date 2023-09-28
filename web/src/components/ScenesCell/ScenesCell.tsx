@@ -82,8 +82,8 @@ export const Success = ({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={clsx({
-                'h-8 w-8 fill-accent': highlighted,
-                'h-8 w-8 fill-tan': live && !highlighted,
+                'h-12 w-12 fill-accent': highlighted,
+                'h-12 w-12 fill-tan': live && !highlighted,
                 'h-5 w-5 fill-gray-400': !live && !highlighted,
               })}
               viewBox="0 0 24 24"
