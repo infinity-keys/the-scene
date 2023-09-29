@@ -20,6 +20,7 @@
     "@redwoodjs/web": "6.1.0",
     "boring-avatars": "^1.10.1",
     "clsx": "^2.0.0",
+    "emojisplosion": "^2.6.1",
     "framer-motion": "^10.16.4",
     "mapbox-gl": "^2.15.0",
     "nuka-carousel": "^6.0.3",
