@@ -63,7 +63,7 @@ const Nav = () => {
           </div>
         )}
 
-        <div className="flex gap-6 bg-black">
+        <div className="flex gap-6">
           <button
             onClick={() => {
               emojisplosion({
