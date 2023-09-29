@@ -32,7 +32,7 @@ const Nav = () => {
     <header className="fixed left-0 top-0 z-20 min-h-[66px] w-full items-center bg-neutral-800 text-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-2">
         {!onHomePage && (
-          <div className="flex-1">
+          <div className="">
             <Link to={routes.home()} className="block w-6">
               <RightArrowIcon />
             </Link>
@@ -63,7 +63,7 @@ const Nav = () => {
           </div>
         )}
 
-        <div className="flex gap-6">
+        <div className="flex gap-6 bg-black">
           <button
             onClick={() => {
               emojisplosion({
