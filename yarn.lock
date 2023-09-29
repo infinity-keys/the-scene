@@ -13612,6 +13612,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"emojisplosion@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "emojisplosion@npm:2.6.1"
+  checksum: 45ed845333b4b3ff603c9251d0452b38262bdbf75f44df57ab86945055bb4686903e3606d60510f1432dd9e6929202d335cf3a7f179e7d1fe3f8e7f7618976d1
+  languageName: node
+  linkType: hard
+
 "encodeurl@npm:~1.0.2":
   version: 1.0.2
   resolution: "encodeurl@npm:1.0.2"
@@ -26226,6 +26233,7 @@ __metadata:
     autoprefixer: ^10.4.15
     boring-avatars: ^1.10.1
     clsx: ^2.0.0
+    emojisplosion: ^2.6.1
     framer-motion: ^10.16.4
     mapbox-gl: ^2.15.0
     nuka-carousel: ^6.0.3
